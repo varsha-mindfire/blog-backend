@@ -21,5 +21,4 @@ public class CustomUserDetailService implements UserDetailsService{
 
 			return  CustomerUserDetails.build(user);
 		}
-
 }
