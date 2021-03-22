@@ -98,7 +98,6 @@ public class JwtController {
 						Role adminRole = roleRepository.findByName(Erole.ROLE_ADMIN)
 								.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 						roles.add(adminRole);
-
 						break;
 					case "mod":
 						Role modRole = roleRepository.findByName(Erole.ROLE_MODERATOR)
