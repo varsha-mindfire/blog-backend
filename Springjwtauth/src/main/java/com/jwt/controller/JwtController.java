@@ -85,8 +85,6 @@ public class JwtController {
 
 			Set<String> strRoles = signuprequest.getRole();
 			Set<Role> roles = new HashSet<>();
-			
-
 			if (strRoles == null) {
 				Role userRole = roleRepository.findByName(Erole.ROLE_USER)
 						.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
@@ -98,12 +96,6 @@ public class JwtController {
 						Role adminRole = roleRepository.findByName(Erole.ROLE_ADMIN)
 								.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 						roles.add(adminRole);
-						break;
-					case "mod":
-						Role modRole = roleRepository.findByName(Erole.ROLE_MODERATOR)
-								.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-						roles.add(modRole);
-
 						break;
 					default:
 						Role userRole = roleRepository.findByName(Erole.ROLE_USER)
