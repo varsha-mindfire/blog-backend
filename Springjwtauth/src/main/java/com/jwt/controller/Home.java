@@ -19,10 +19,10 @@ public class Home {
 	public String userAccess() {
 		return "User Content.";
 	}
+	
 	@GetMapping("/admin")
 	@PreAuthorize("hasRole('ADMIN')")
 	public String adminAccess() {
 		return "Admin Board.";
 	}
-
 }
