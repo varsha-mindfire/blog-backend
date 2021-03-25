@@ -1,10 +1,9 @@
 package com.jwt.model;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-//import javax.management.relation.Role;
-import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,14 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-@Entity
-@Table(name="USERS",
-uniqueConstraints={
-		@UniqueConstraint(columnNames="username"),
-		@UniqueConstraint(columnNames="email")})
-public class User {
+
+public class UserModel {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private String Id;
@@ -29,16 +22,18 @@ public class User {
 	private String username;
 	
 	private String password;
+	private List<BlogModel> blog;
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(	name = "user_roles", 
 				joinColumns = @JoinColumn(name = "user_id"), 
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
-	public User() {}
-	public User( String email, String password,String username) {
+	public UserModel() {}
+	public UserModel( String email, String password,String username,List<BlogModel> blog) {
 		this.email = email;
 		this.password = password;
 		this.username=username;
+		this.blog=blog;
 	}
 	public String getId() {
 		return Id;
@@ -70,14 +65,13 @@ public class User {
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
+	public List<BlogModel> getBlog() {
+		return blog;
+	}
+	public void setBlog(List<BlogModel> blog) {
+		this.blog = blog;
+	}
 	
 	
+
 }
-
-//	@Override
-//	public String toString() {
-//		return "User [Id=" + Id + ", email=" + email + ", password=" + password + ",username =" + username + ", role=" + role + ",enabled=" + enabled + "]";
-//	}
-//	
-
-
