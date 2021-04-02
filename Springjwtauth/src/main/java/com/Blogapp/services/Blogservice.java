@@ -14,7 +14,7 @@ import lombok.Builder;
 
 @Service
 @AllArgsConstructor
-@Builder
+//@Builder
 public class Blogservice{
 	@Autowired
 	private Blogrepo blogrepo;
