@@ -5,9 +5,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+<<<<<<< HEAD:BlogAppBackend/src/main/java/com/blogapp/services/Blogservice.java
 import com.blogapp.dto.request.Blogdto;
 import com.blogapp.model.Blog;
 import com.blogapp.repo.Blogrepo;
+=======
+import com.Blogapp.dto.request.DtoBlog;
+import com.Blogapp.model.Blog;
+import com.Blogapp.repo.BlogRepository;
+
+>>>>>>> main:Springjwtauth/src/main/java/com/Blogapp/services/Blogservice.java
 
 import lombok.AllArgsConstructor;
 
@@ -16,18 +23,18 @@ import lombok.AllArgsConstructor;
 //@Builder
 public class Blogservice{
 	@Autowired
-	private Blogrepo blogrepo;
+	private BlogRepository blogRepository;
 	
-	public void save(Blogdto blogdto) {
+	public void save(DtoBlog dtoBlog) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String currentPrincipalName = authentication.getName();
 		Blog b =new Blog();
-		b.setTitle(blogdto.getTitle());
-		b.setSection(blogdto.getSection());
-		b.setDescription(blogdto.getDescription());
-		b.setCreateDate(blogdto.getCreateDate());
+		b.setTitle(dtoBlog.getTitle());
+		b.setSection(dtoBlog.getSection());
+		b.setDescription(dtoBlog.getDescription());
+		b.setCreateDate(dtoBlog.getCreateDate());
 		b.setUsername(currentPrincipalName);
-		blogrepo.save(b);
+		blogRepository.save(b);
 	}
 	
 

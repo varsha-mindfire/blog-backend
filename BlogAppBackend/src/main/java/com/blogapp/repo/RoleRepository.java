@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 import com.blogapp.model.Erole;
 import com.blogapp.model.Role;
 
+//import com.blogapp.model.Erole;
+//import com.blogapp.model.Role;
+
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
 	Optional<Role> findByName(Erole name);
