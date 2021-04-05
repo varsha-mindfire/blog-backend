@@ -4,14 +4,14 @@ import java.time.Instant;
 
 import lombok.Builder;
 @Builder
-public class Blogdto {
+public class DtoBlog {
 	private String id;
 	private String title;
 	private String section;
 	private String description;
 	private Instant createDate;
-	public Blogdto() {}
-	public Blogdto(String title, String section, String description, Instant createDate) {
+	public DtoBlog() {}
+	public DtoBlog(String title, String section, String description, Instant createDate) {
 		super();
 		this.title = title;
 		this.section = section;

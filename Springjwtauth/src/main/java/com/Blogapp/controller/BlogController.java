@@ -11,38 +11,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.Blogapp.dto.request.Blogdto;
+import com.Blogapp.dto.request.DtoBlog;
 import com.Blogapp.dto.response.MessageResponse;
 import com.Blogapp.model.Blog;
-import com.Blogapp.repo.Blogrepo;
+import com.Blogapp.repo.BlogRepository;
 import com.Blogapp.services.Blogservice;
 
 @RestController
 @RequestMapping("/api/test")
-public class Blogcontroller {
+public class BlogController {
 	@Autowired 
 	Blogservice blogservice;
 	@Autowired
-	Blogrepo blogrepo;
-//	@PostMapping
-//	public void createBlog(@RequestBody Blogdto blogdto) {
-//		
-//	}
+	BlogRepository blogRepository;
 	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	@RequestMapping(value="user/createresource",method=RequestMethod.POST)
-	public ResponseEntity<?> createStudent(@RequestBody Blogdto blogdto) {
-		blogservice.save(blogdto);
+	public ResponseEntity<?> createStudent(@RequestBody DtoBlog dtoBlog) {
+		blogservice.save(dtoBlog);
 		return ResponseEntity.ok(new MessageResponse("Blog posted successfully!"));
 	}
 	@GetMapping(value="/getall")
 	public List<Blog> getAll() {
-	    return blogrepo.findAll();
+	    return blogRepository.findAll();
 	}
-//	@GetMapping(value = "/{username}")
-//	public List<Blog> getOne(HttpServletRequest request) {
-//		Principal principal = request.getUserPrincipal();
-//	    return blogrepo.findByUsername(principal.getName());
-//	    
-////	    		.orElseThrow(() -> new ResourceNotFoundException());
-//	}
 }

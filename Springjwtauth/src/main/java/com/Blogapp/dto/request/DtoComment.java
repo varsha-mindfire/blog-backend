@@ -1,12 +1,12 @@
 package com.Blogapp.dto.request;
 
-public class Comment {
+public class DtoComment {
 	private String id;
 	private String comment;
-	public Comment(String comment, String username, String blogid) {
+	public DtoComment(String comment, String username, String blogid) {
 		this.comment = comment;
 	}
-	public Comment(String comment) {
+	public DtoComment(String comment) {
 		this.comment = comment;
 	}
 	public String getId() {

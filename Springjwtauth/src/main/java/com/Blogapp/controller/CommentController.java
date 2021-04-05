@@ -6,20 +6,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import com.Blogapp.dto.request.Comment;
+
+import com.Blogapp.dto.request.DtoComment;
 import com.Blogapp.dto.response.MessageResponse;
-import com.Blogapp.repo.Commentrepo;
-import com.Blogapp.services.Commentservices;
+import com.Blogapp.repo.CommentRepository;
+import com.Blogapp.services.CommentService;
+
 
 @RestController
 @RequestMapping("/api/auth")
-public class Commentcontroller {
+public class CommentController {
 	@Autowired
-	Commentservices commentservice;
+	CommentService commentservice;
 	@Autowired
-	Commentrepo commentrepo;
+	CommentRepository commentRepository;
 	@RequestMapping(value="createcomment",method=RequestMethod.POST)
-	public ResponseEntity<?> createStudent(@RequestBody Comment commentdto) {
+	public ResponseEntity<?> createStudent(@RequestBody DtoComment commentdto) {
 		commentservice.save(commentdto);
 		return ResponseEntity.ok(new MessageResponse("Comment added successfully!"));
 	}

@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import com.Blogapp.services.CustomerUserDetails;
+import com.Blogapp.services.CustomUserDetails;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -18,8 +18,8 @@ import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 
 @Component
-public class Jwtutil {
-	private static final Logger logger = LoggerFactory.getLogger(Jwtutil.class);
+public class JwtUtil {
+	private static final Logger logger = LoggerFactory.getLogger(JwtUtil.class);
 
 	@Value("${pass.app.jwtSecret}")
 	private String jwtSecret;
@@ -29,7 +29,7 @@ public class Jwtutil {
  
 	public String generateJwtToken(Authentication authentication) {
 
-		CustomerUserDetails  userPrincipal = (CustomerUserDetails ) authentication.getPrincipal();
+		CustomUserDetails  userPrincipal = (CustomUserDetails ) authentication.getPrincipal();
 
 		return Jwts.builder()
 				.setSubject((userPrincipal.getUsername()))

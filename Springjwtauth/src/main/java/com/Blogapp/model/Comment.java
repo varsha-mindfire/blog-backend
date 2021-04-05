@@ -3,14 +3,14 @@ package com.Blogapp.model;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection="comments")
-public class Commentmodel {
+public class Comment {
 	private String id;
 	private String comment;
 	private String username;
 	private String blogid;
 	private Object details;
-	public Commentmodel() {}
-	public Commentmodel(String id, String comment, String username, String blogid, Object details) {
+	public Comment() {}
+	public Comment(String id, String comment, String username, String blogid, Object details) {
 		this.id = id;
 		this.comment = comment;
 		this.username = username;
@@ -35,7 +35,7 @@ public class Commentmodel {
 	public void setBlogid(String blogid) {
 		this.blogid = blogid;
 	}
-	public Commentmodel(String comment) {
+	public Comment(String comment) {
 		this.comment = comment;
 	}
 	public String getId() {

@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.Blogapp.services.CustomerUserDetails;
+import com.Blogapp.services.CustomUserDetails;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/test")
-public class Home {
+public class HomeController {
 	@Autowired
-	CustomerUserDetails customerUserDetails;
+	CustomUserDetails customUserDetails;
 	@GetMapping("/all")
 	public String allAccess() {
 		return "Public Content.";

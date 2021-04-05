@@ -21,11 +21,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.Blogapp.dto.request.Loginrequest;
-import com.Blogapp.dto.request.SignupRequest;
+import com.Blogapp.dto.request.DtoLoginRequest;
+import com.Blogapp.dto.request.DtoSignupRequest;
 import com.Blogapp.dto.response.JwtResponse;
 import com.Blogapp.dto.response.MessageResponse;
-import com.Blogapp.helper.Jwtutil;
+import com.Blogapp.helper.JwtUtil;
 import com.Blogapp.model.Erole;
 import com.Blogapp.model.Role;
 import com.Blogapp.model.User;
@@ -33,7 +33,7 @@ import com.Blogapp.repo.RoleRepository;
 import com.Blogapp.repo.UserRepository;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 @Service
-public class CustomerUserDetails implements UserDetails{
+public class CustomUserDetails implements UserDetails{
 	private static final long serialVersionUID = 1L;
 
 	private String id;
@@ -50,7 +50,7 @@ public class CustomerUserDetails implements UserDetails{
 	@Autowired
 	PasswordEncoder encoder;
 	@Autowired
-	private Jwtutil jwtUtil;
+	private JwtUtil jwtUtil;
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
@@ -58,8 +58,8 @@ public class CustomerUserDetails implements UserDetails{
 	private String password;
 
 	private Collection<? extends GrantedAuthority> authorities;
-	public CustomerUserDetails() {}
-	public CustomerUserDetails(String id, String username, String email, String password,
+	public CustomUserDetails() {}
+	public CustomUserDetails(String id, String username, String email, String password,
 			Collection<? extends GrantedAuthority> authorities) {
 		this.id = id;
 		this.username = username;
@@ -68,12 +68,12 @@ public class CustomerUserDetails implements UserDetails{
 		this.authorities = authorities;
 	}
 
-	public static CustomerUserDetails build(User user) {
+	public static CustomUserDetails build(User user) {
 		List<GrantedAuthority> authorities = user.getRoles().stream()
 				.map(role -> new SimpleGrantedAuthority(role.getName().name()))
 				.collect(Collectors.toList());
 
-		return new CustomerUserDetails(
+		return new CustomUserDetails(
 				user.getId(), 
 				user.getUsername(), 
 				user.getEmail(),
@@ -81,7 +81,7 @@ public class CustomerUserDetails implements UserDetails{
 				authorities);
 	}
 	//for registering users
-	public ResponseEntity<?> registerUser(@RequestBody SignupRequest signuprequest) {
+	public ResponseEntity<?> registerUser(@RequestBody DtoSignupRequest signuprequest) {
 		if (userRepository.existsByUsername(signuprequest.getUsername())) {
 			return ResponseEntity
 					.badRequest()
@@ -126,7 +126,7 @@ public class CustomerUserDetails implements UserDetails{
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 	}
 	//for authenticating users
-	public ResponseEntity<?> authenticateUser( @RequestBody Loginrequest jwtRequest) throws Exception{
+	public ResponseEntity<?> authenticateUser( @RequestBody DtoLoginRequest jwtRequest) throws Exception{
 
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken( jwtRequest.getUsername(),  jwtRequest.getPassword()));
@@ -134,7 +134,7 @@ public class CustomerUserDetails implements UserDetails{
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		String jwt = jwtUtil.generateJwtToken(authentication);
 		
-		CustomerUserDetails userDetails = (CustomerUserDetails) authentication.getPrincipal();		
+		CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();		
 		List<String> roles = userDetails.getAuthorities().stream()
 				.map(item -> item.getAuthority())
 				.collect(Collectors.toList());
@@ -195,7 +195,7 @@ public class CustomerUserDetails implements UserDetails{
 			return true;
 		if (o == null || getClass() != o.getClass())
 			return false;
-		CustomerUserDetails user = (CustomerUserDetails) o;
+		CustomUserDetails user = (CustomUserDetails) o;
 		return Objects.equals(id, user.id);
 	}
 }

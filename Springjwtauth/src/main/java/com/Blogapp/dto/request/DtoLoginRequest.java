@@ -1,10 +1,10 @@
 package com.Blogapp.dto.request;
 
-public class Loginrequest {
+public class DtoLoginRequest {
 	String username;
 	String password;
-	public Loginrequest() {}
-	public Loginrequest(String username, String password) {
+	public DtoLoginRequest() {}
+	public DtoLoginRequest(String username, String password) {
 		super();
 		this.username = username;
 		this.password = password;

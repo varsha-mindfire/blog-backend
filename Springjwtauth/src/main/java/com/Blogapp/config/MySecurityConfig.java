@@ -20,7 +20,7 @@ import com.Blogapp.services.CustomUserDetailService;
 @EnableWebSecurity //main annotation which enables web security module
 @EnableGlobalMethodSecurity(
 		prePostEnabled = true)
-public class Mysecurityconfig extends WebSecurityConfigurerAdapter{ //provides all default security configuration
+public class MySecurityConfig extends WebSecurityConfigurerAdapter{ //provides all default security configuration
 	@Autowired
 	private CustomUserDetailService customUserDetailService;
 

@@ -5,25 +5,24 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import com.Blogapp.dto.request.Comment;
-
-import com.Blogapp.model.Commentmodel;
-import com.Blogapp.repo.Commentrepo;
+import com.Blogapp.dto.request.DtoComment;
+import com.Blogapp.model.Comment;
+import com.Blogapp.repo.CommentRepository;
 @Service
-public class Commentservices {
+public class CommentService {
 	@Autowired
-	Commentrepo commentrepo;
-	public void save(Comment comrequest) {
+	CommentRepository commentRepository;
+	public void save(DtoComment comrequest) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Object currentPrincipalName = authentication.getDetails();
 		String name=authentication.getName();
-		Commentmodel c = new Commentmodel();
+		Comment c = new Comment();
 		c.setComment(comrequest.getComment());
 //		c.setBlogid(currentPrincipalName);
 //		b.setCreateDate(blogdto.getCreateDate());
 		c.setDetails(currentPrincipalName);
 		c.setUsername(name);
-		commentrepo.save(c);
+		commentRepository.save(c);
 	}
 
 }

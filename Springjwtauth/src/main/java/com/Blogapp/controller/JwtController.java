@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.Blogapp.dto.request.Loginrequest;
-import com.Blogapp.dto.request.SignupRequest;
+import com.Blogapp.dto.request.DtoLoginRequest;
+import com.Blogapp.dto.request.DtoSignupRequest;
 import com.Blogapp.dto.response.MessageResponse;
 import com.Blogapp.repo.RoleRepository;
 import com.Blogapp.repo.UserRepository;
-import com.Blogapp.services.CustomerUserDetails;
+import com.Blogapp.services.CustomUserDetails;
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/auth")
@@ -26,16 +27,16 @@ public class JwtController {
 	@Autowired
 	RoleRepository roleRepository;
 	@Autowired
-	CustomerUserDetails customeruserdetails;
+	CustomUserDetails customeruserdetails;
 
 	@PostMapping(value="/signin")
-	public ResponseEntity<?> signin( @RequestBody Loginrequest jwtRequest) throws Exception{
+	public ResponseEntity<?> signin( @RequestBody DtoLoginRequest jwtRequest) throws Exception{
 		return  customeruserdetails.authenticateUser(jwtRequest);
 	}
 
 		@PostMapping("/signup")
-		 public ResponseEntity<?> signup(@RequestBody SignupRequest signupRequest) {
-			customeruserdetails.registerUser(signupRequest);
+		 public ResponseEntity<?> signup(@RequestBody DtoSignupRequest dtoSignupRequest) {
+			customeruserdetails.registerUser(dtoSignupRequest);
 			return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 	    }
 }
