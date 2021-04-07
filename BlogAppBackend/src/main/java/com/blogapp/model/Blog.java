@@ -37,7 +37,7 @@ public void setId(String id) {
 	this.id=id;
 	
 }
-public String getId(String id) {
+public String getId() {
 	return id;
 	
 }

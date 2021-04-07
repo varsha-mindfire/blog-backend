@@ -8,11 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-<<<<<<< HEAD:BlogAppBackend/src/main/java/com/blogapp/controller/Home.java
-import com.blogapp.services.CustomerUserDetails;
-=======
-import com.Blogapp.services.CustomUserDetails;
->>>>>>> main:BlogAppBackend/src/main/java/com/blogapp/controller/HomeController.java
+import com.blogapp.services.CustomUserDetails;
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/test")

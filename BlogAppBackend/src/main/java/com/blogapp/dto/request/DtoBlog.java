@@ -1,4 +1,4 @@
-package com.blogapp.dto.request;
+ package com.blogapp.dto.request;
 
 import java.time.Instant;
 
@@ -50,4 +50,3 @@ public class DtoBlog {
 		this.createDate = createDate;
 	}
 }
-	

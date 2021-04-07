@@ -21,29 +21,19 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
-<<<<<<< HEAD:BlogAppBackend/src/main/java/com/blogapp/services/CustomerUserDetails.java
-import com.blogapp.dto.request.Loginrequest;
-import com.blogapp.dto.request.SignupRequest;
+import com.blogapp.dto.request.DtoLoginRequest;
+import com.blogapp.dto.request.DtoSignupRequest;
 import com.blogapp.dto.response.JwtResponse;
 import com.blogapp.dto.response.MessageResponse;
-import com.blogapp.helper.Jwtutil;
+import com.blogapp.helper.JwtUtil;
 import com.blogapp.model.Erole;
 import com.blogapp.model.Role;
 import com.blogapp.model.User;
 import com.blogapp.repo.RoleRepository;
 import com.blogapp.repo.UserRepository;
-=======
-import com.Blogapp.dto.request.DtoLoginRequest;
-import com.Blogapp.dto.request.DtoSignupRequest;
-import com.Blogapp.dto.response.JwtResponse;
-import com.Blogapp.dto.response.MessageResponse;
-import com.Blogapp.helper.JwtUtil;
-import com.Blogapp.model.Erole;
-import com.Blogapp.model.Role;
-import com.Blogapp.model.User;
-import com.Blogapp.repo.RoleRepository;
-import com.Blogapp.repo.UserRepository;
->>>>>>> main:BlogAppBackend/src/main/java/com/blogapp/services/CustomUserDetails.java
+
+
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 @Service
 public class CustomUserDetails implements UserDetails{

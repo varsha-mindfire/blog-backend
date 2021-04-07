@@ -9,32 +9,27 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-<<<<<<< HEAD:BlogAppBackend/src/main/java/com/blogapp/controller/JwtController.java
-import com.blogapp.dto.request.Loginrequest;
-import com.blogapp.dto.request.SignupRequest;
+import com.blogapp.dto.request.DtoLoginRequest;
+import com.blogapp.dto.request.DtoSignupRequest;
 import com.blogapp.dto.response.MessageResponse;
 import com.blogapp.repo.RoleRepository;
 import com.blogapp.repo.UserRepository;
-import com.blogapp.services.CustomerUserDetails;
-=======
-import com.Blogapp.dto.request.DtoLoginRequest;
-import com.Blogapp.dto.request.DtoSignupRequest;
-import com.Blogapp.dto.response.MessageResponse;
-import com.Blogapp.repo.RoleRepository;
-import com.Blogapp.repo.UserRepository;
-import com.Blogapp.services.CustomUserDetails;
+import com.blogapp.services.CustomUserDetails;
 
->>>>>>> main:Springjwtauth/src/main/java/com/Blogapp/controller/JwtController.java
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/auth")
 public class JwtController {
+	
 	@Autowired
 	UserRepository userRepository;
+	
 	@Autowired
 	PasswordEncoder encoder;
+	
 	@Autowired
 	RoleRepository roleRepository;
+	
 	@Autowired
 	CustomUserDetails customeruserdetails;
 

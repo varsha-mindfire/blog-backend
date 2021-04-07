@@ -19,19 +19,22 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.blogapp.helper.Jwtutil;
+import com.blogapp.helper.JwtUtil;
 import com.blogapp.services.CustomUserDetailService;
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		@Autowired
-		private Jwtutil jwtUtils;
+		private JwtUtil jwtUtils;
 
 		@Autowired
 		private CustomUserDetailService userDetailsService;
 
 		private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
 
-
+//		getting JWT from the Authorization header (by removing Bearer prefix)
+//		if the request has JWT, validate it, parse username from it
+//		 from username, get UserDetails to create an Authentication object
+//		 set the current UserDetails in SecurityContext using setAuthentication(authentication) method.
 		@Override
 		protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 				throws ServletException, IOException {
