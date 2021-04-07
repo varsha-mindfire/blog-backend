@@ -17,7 +17,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-@Document(collection="blogapp")
+@Document(collection="blogs")
 public class Blog {
 private String id;
 private String title;
