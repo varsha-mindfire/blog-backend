@@ -8,11 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-<<<<<<< HEAD:BlogAppBackend/src/main/java/com/blogapp/helper/Jwtutil.java
-import com.blogapp.services.CustomerUserDetails;
-=======
-import com.Blogapp.services.CustomUserDetails;
->>>>>>> main:BlogAppBackend/src/main/java/com/blogapp/helper/JwtUtil.java
+import com.blogapp.services.CustomUserDetails;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -30,7 +26,7 @@ public class JwtUtil {
 
 	@Value("${pass.app.jwtExpirationMs}")
 	private int jwtExpirationMs;
- 
+	//generate a JWT from username, date, expiration, secret
 	public String generateJwtToken(Authentication authentication) {
 
 		CustomUserDetails  userPrincipal = (CustomUserDetails ) authentication.getPrincipal();
@@ -42,11 +38,11 @@ public class JwtUtil {
 				.signWith(SignatureAlgorithm.HS512, jwtSecret)
 				.compact();
 	}
-
+	//getting username from JWT
 	public String getUserNameFromJwtToken(String token) {
 		return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
 	}
-
+	//validating a JWT
 	public boolean validateJwtToken(String authToken) {
 		try {
 			Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
@@ -66,5 +62,3 @@ public class JwtUtil {
 		return false;
 }
 }
-
-

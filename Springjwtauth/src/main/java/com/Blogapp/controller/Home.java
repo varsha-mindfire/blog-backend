@@ -1,24 +1,22 @@
-package com.blogapp.controller;
+package com.Blogapp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-<<<<<<< HEAD:BlogAppBackend/src/main/java/com/blogapp/controller/Home.java
 import com.blogapp.services.CustomerUserDetails;
-=======
-import com.Blogapp.services.CustomUserDetails;
->>>>>>> main:BlogAppBackend/src/main/java/com/blogapp/controller/HomeController.java
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/test")
-public class HomeController {
+public class Home {
 	@Autowired
-	CustomUserDetails customUserDetails;
+	CustomerUserDetails customerUserDetails;
 	@GetMapping("/all")
 	public String allAccess() {
 		return "Public Content.";

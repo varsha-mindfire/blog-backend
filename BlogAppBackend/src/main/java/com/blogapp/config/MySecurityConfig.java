@@ -50,6 +50,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter{ //provides a
 		.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 		.and().authorizeRequests().antMatchers("/api/auth/**").permitAll()
 		.antMatchers("/api/test/**")
+		.permitAll().antMatchers("/blog").permitAll().antMatchers("/comments")
 		.permitAll()
 		.antMatchers("/v2/api-docs",
 				"/configuration/ui",

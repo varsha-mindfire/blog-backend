@@ -6,22 +6,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-<<<<<<< HEAD:BlogAppBackend/src/main/java/com/blogapp/controller/Commentcontroller.java
-import com.blogapp.dto.request.Comment;
+
+import com.blogapp.dto.request.DtoComment;
 import com.blogapp.dto.response.MessageResponse;
-import com.blogapp.repo.Commentrepo;
-import com.blogapp.services.Commentservices;
-=======
+import com.blogapp.repo.CommentRepository;
+import com.blogapp.services.CommentService;
 
-import com.Blogapp.dto.request.DtoComment;
-import com.Blogapp.dto.response.MessageResponse;
-import com.Blogapp.repo.CommentRepository;
-import com.Blogapp.services.CommentService;
-
->>>>>>> main:BlogAppBackend/src/main/java/com/blogapp/controller/CommentController.java
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/comments")
 public class CommentController {
 	@Autowired
 	CommentService commentservice;
