@@ -2,9 +2,10 @@
 spring:
   data:
     mongodb:
-      host: localhost
-      port: 27017
-      database: database1
+      uri: mongodb+srv://admin:admin%40123@cluster0.885ps.mongodb.net/blogdb?retryWrites=true&w=majority
+      database: blogdb
+      #host: localhost
+      #port: 27017
   datasource:
     url: jdbc:mysql://localhost:3306/mydb1?serverTimeZone=UTC
     username: root

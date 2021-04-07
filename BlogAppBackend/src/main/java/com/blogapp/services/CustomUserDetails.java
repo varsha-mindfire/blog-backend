@@ -50,10 +50,13 @@ public class CustomUserDetails implements UserDetails{
 	
 	@Autowired
 	private RoleRepository roleRepository;
+	
 	@Autowired
 	PasswordEncoder encoder;
+	
 	@Autowired
 	private JwtUtil jwtUtil;
+	
 	@Autowired
 	private AuthenticationManager authenticationManager;
 

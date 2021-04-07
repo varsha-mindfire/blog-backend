@@ -12,8 +12,6 @@ import com.blogapp.dto.request.DtoBlog;
 import com.blogapp.model.Blog;
 import com.blogapp.repo.BlogRepository;
 
-import lombok.AllArgsConstructor;
-
 @Service
 public class BlogService{
 	@Autowired
