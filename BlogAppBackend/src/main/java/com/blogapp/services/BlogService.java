@@ -28,6 +28,7 @@ public class BlogService{
 		b.setUsername(currentPrincipalName);
 		Blog c=blogRepository.save(b);
 		dtoBlog.setId(c.getId());
+		//text comment
 		return dtoBlog; 
 	}
 	@Transactional(readOnly=true)
