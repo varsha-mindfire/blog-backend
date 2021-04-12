@@ -29,6 +29,7 @@ public class BlogService{
 		Blog c=blogRepository.save(b);
 		dtoBlog.setId(c.getId());
 		//text comment
+		//text
 		return dtoBlog; 
 	}
 	@Transactional(readOnly=true)
