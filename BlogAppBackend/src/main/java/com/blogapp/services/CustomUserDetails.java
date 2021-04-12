@@ -86,6 +86,7 @@ public class CustomUserDetails implements UserDetails{
 				user.getPassword(), 
 				authorities);
 	}
+	
 	//for registering users
 	public ResponseEntity<?> registerUser(@RequestBody DtoSignupRequest signuprequest) {
 		if (userRepository.existsByUsername(signuprequest.getUsername())) {
@@ -131,11 +132,13 @@ public class CustomUserDetails implements UserDetails{
 		userRepository.save(user);
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 	}
+	
 	//for authenticating users
 	public ResponseEntity<?> authenticateUser( @RequestBody DtoLoginRequest jwtRequest) throws Exception{
 
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken( jwtRequest.getUsername(),  jwtRequest.getPassword()));
+		
 		//to store authentication object inside the security context
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		String jwt = jwtUtil.generateJwtToken(authentication);

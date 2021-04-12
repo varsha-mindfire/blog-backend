@@ -18,8 +18,10 @@ import com.blogapp.services.CommentService;
 public class CommentController {
 	@Autowired
 	CommentService commentservice;
+	
 	@Autowired
 	CommentRepository commentRepository;
+	
 	@RequestMapping(value="createcomment",method=RequestMethod.POST)
 	public ResponseEntity<?> createStudent(@RequestBody DtoComment commentdto) {
 		commentservice.save(commentdto);

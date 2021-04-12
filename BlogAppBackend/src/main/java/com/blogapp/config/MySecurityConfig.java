@@ -21,29 +21,35 @@ import com.blogapp.services.CustomUserDetailService;
 @EnableGlobalMethodSecurity(
 		prePostEnabled = true)
 public class MySecurityConfig extends WebSecurityConfigurerAdapter{ //provides all default security configuration
+	
 	@Autowired
 	private CustomUserDetailService customUserDetailService;
 
 	@Autowired
 	private JwtAuthenticationEntryPoint entryPoint;
+	
 	@Bean
 	public JwtAuthenticationFilter authenticationJwtTokenFilter() {
 		return new JwtAuthenticationFilter();
 	}
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(customUserDetailService);
 	}
+	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	
 	@Bean
 	@Override
 	public AuthenticationManager authenticationManagerBean() throws Exception
 	{
 		return super.authenticationManager();
 	}
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(entryPoint)

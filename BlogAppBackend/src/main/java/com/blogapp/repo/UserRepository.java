@@ -11,12 +11,7 @@ import com.blogapp.model.User;
 public interface UserRepository extends JpaRepository<User, String> {
 	Optional<User> findByUsername(String username);
 	public Optional<User> findById(String Id);
-	
-
 	Boolean existsByUsername(String username);
-
 	Boolean existsByEmail(String email);
-	 boolean existsById(String Id);
-
-
+	boolean existsById(String Id);
 }

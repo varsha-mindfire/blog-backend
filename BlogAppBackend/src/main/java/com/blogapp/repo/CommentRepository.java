@@ -10,6 +10,4 @@ import com.blogapp.model.Comment;
 @Repository
 public interface CommentRepository extends MongoRepository<Comment, String> {
 	Optional<Comment> findById(String id);
-	
-
 }

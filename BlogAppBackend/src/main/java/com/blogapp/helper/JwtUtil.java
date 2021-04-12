@@ -26,6 +26,7 @@ public class JwtUtil {
 
 	@Value("${pass.app.jwtExpirationMs}")
 	private int jwtExpirationMs;
+	
 	//generate a JWT from username, date, expiration, secret
 	public String generateJwtToken(Authentication authentication) {
 
@@ -38,10 +39,12 @@ public class JwtUtil {
 				.signWith(SignatureAlgorithm.HS512, jwtSecret)
 				.compact();
 	}
+	
 	//getting username from JWT
 	public String getUserNameFromJwtToken(String token) {
 		return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
 	}
+	
 	//validating a JWT
 	public boolean validateJwtToken(String authToken) {
 		try {
@@ -58,7 +61,6 @@ public class JwtUtil {
 		} catch (IllegalArgumentException e) {
 			logger.error("JWT claims string is empty: {}", e.getMessage());
 		}
-
 		return false;
-}
+	}
 }
