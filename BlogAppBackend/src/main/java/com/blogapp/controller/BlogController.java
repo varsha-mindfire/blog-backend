@@ -20,7 +20,8 @@ import com.blogapp.services.BlogService;
 @RestController
 @RequestMapping("/blog")
 public class BlogController {
-	@Autowired 
+	
+	@Autowired
 	BlogService blogservice;
 	
 	@Autowired
@@ -30,8 +31,8 @@ public class BlogController {
 	@RequestMapping(value="createblog",method=RequestMethod.POST)
 	public void createBlog (@RequestBody DtoBlog dtoBlog) {
 		ResponseEntity.status(HttpStatus.CREATED ).body(blogservice.saveBlog(dtoBlog));
-//		 ResponseEntity.ok(new MessageResponse("Blog posted successfully!"));
 	}
+	
 	@GetMapping(value="/getall")
 	public ResponseEntity<List<Blog>> getAllBlog() {
 	   return  ResponseEntity.status(HttpStatus.OK).body(blogservice.getAll());

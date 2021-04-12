@@ -26,16 +26,12 @@ public class BlogService{
 		b.setDescription(dtoBlog.getDescription());
 		b.setCreateDate(dtoBlog.getCreateDate());
 		b.setUsername(currentPrincipalName);
-		
 		Blog c=blogRepository.save(b);
 		dtoBlog.setId(c.getId());
 		return dtoBlog; 
 	}
 	@Transactional(readOnly=true)
 	public List<Blog> getAll() {
-		return blogRepository.findAll(); 
-		
+		return blogRepository.findAll();
 	}
-
-
-} 
+}

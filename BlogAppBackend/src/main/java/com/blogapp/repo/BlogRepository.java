@@ -9,5 +9,4 @@ public interface BlogRepository extends MongoRepository<Blog, String> {
 
 	Optional<Blog> findByTitle(String title);
 	Optional<Blog> findById(String id);
-//	List<Blog> findByUsername(String username);
 }

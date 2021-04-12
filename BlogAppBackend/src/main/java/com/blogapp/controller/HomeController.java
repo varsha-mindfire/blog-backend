@@ -16,6 +16,7 @@ import com.blogapp.services.CustomUserDetails;
 public class HomeController {
 	@Autowired
 	CustomUserDetails customUserDetails;
+	
 	@GetMapping("/all")
 	public String allAccess() {
 		return "Public Content.";
@@ -26,15 +27,16 @@ public class HomeController {
 	public String userAccess() {
 		return "User Content.";
 	}
+	
 	@GetMapping("/admin")
 	@PreAuthorize("hasRole('ADMIN')")
 	public String adminAccess() {
 		return "Admin Board.";
 	}
+	
 	@PostMapping("/addblog")
 	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public String blogpart() {
 		return "blog Board.";
 	}
-
 }
