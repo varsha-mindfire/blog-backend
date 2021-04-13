@@ -6,31 +6,28 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Comment {
 	private String id;
 	private String comment;
-	private String username;
 	private String blogid;
-	private Object details;
+	private String username;
+//	private User user;
+//	private Blog blog;
 	public Comment() {}
-	public Comment(String id, String comment, String username, String blogid, Object details) {
+	public Comment(String id, String comment, String blogid,String username) {
 		this.id = id;
 		this.comment = comment;
-		this.username = username;
 		this.blogid = blogid;
-		this.details = details;
+		this.username=username;
+//		this.user = user;
+		
 	}
-	public Object getDetails() {
-		return details;
+	public String getBlogid() {
+		return blogid;
 	}
-	public void setDetails(Object details) {
-		this.details = details;
-	}
+	
 	public String getUsername() {
 		return username;
 	}
 	public void setUsername(String username) {
 		this.username = username;
-	}
-	public String getBlogid() {
-		return blogid;
 	}
 	public void setBlogid(String blogid) {
 		this.blogid = blogid;
@@ -50,6 +47,13 @@ public class Comment {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
+//	public User getUser() {
+//		return user;
+//	}
+//	public void setUser(User user) {
+//		this.user = user;
+//	}
+	
 	
 
 }

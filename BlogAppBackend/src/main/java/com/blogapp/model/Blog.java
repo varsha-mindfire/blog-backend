@@ -1,6 +1,8 @@
 package com.blogapp.model;
 
-import java.time.Instant;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -19,11 +21,14 @@ import lombok.Setter;
 @Builder
 @Document(collection="blogpost")
 public class Blog {
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 private String id;
 private String title;
 private String section;
 private String description;
-private Instant createDate;
+//private User user;
+
 private String username;
 public Blog() {}
 
@@ -93,5 +98,13 @@ public String getUsername() {
 public void setUsername(String username) {
 	this.username = username;
 }
+
+//public User getUser() {
+//	return user;
+//}
+//
+//public void setUser(User user) {
+//	this.user = user;
+//}
 
 }
