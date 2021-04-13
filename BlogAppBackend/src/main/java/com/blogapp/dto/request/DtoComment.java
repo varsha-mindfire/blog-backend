@@ -4,12 +4,10 @@ public class DtoComment {
 	private String id;
 	private String blogId;
 	private String comment;
-	private String Username;
 
-	public DtoComment(String blogId, String comment, String username) {
+	public DtoComment(String blogId, String comment) {
 	this.blogId = blogId;
 	this.comment = comment;
-	Username = username;
 }
 	
 	public String getId() {
@@ -36,11 +34,4 @@ public class DtoComment {
 		this.blogId = blogId;
 	}
 	
-	public String getUsername() {
-		return Username;
-	}
-	
-	public void setUsername(String username) {
-		Username = username;
-	}
 }

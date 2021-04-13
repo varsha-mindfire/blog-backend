@@ -48,7 +48,7 @@ public class BlogController {
 	        return ResponseEntity.status(HttpStatus.OK).body(blogservice.getBlog(id));
 	    }
 	 @GetMapping("by-user/{name}")
-	    public ResponseEntity<Blog> getBlogByUsername(@PathVariable String name) {
+	    public ResponseEntity<List<Blog>> getBlogByUsername(@PathVariable String name) {
 	        return ResponseEntity.status(HttpStatus.OK).body(blogservice.getBlogByName(name));
 	    }}
 

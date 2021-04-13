@@ -1,5 +1,6 @@
 package com.blogapp.repo;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -9,5 +10,6 @@ public interface BlogRepository extends MongoRepository<Blog, String> {
 
 	Optional<Blog> findByTitle(String title);
 	Optional<Blog> findById(String id);
-	Optional<Blog> findByUsername(String username);
+	List<Blog> findByUsername(String username);
+
 }

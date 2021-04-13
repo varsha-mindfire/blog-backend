@@ -40,9 +40,9 @@ public class BlogService{
 	                .orElseThrow(() -> new BlogNotFoundException("blog is not found"));
 	    }
 	   @Transactional(readOnly = true)
-	    public Blog getBlogByName(String name) {
-	        return blogRepository.findByUsername(name)
-	                .orElseThrow(() -> new BlogNotFoundException(name.toString()));
+	    public List<Blog> getBlogByName(String name) {
+	        return blogRepository.findByUsername(name);
+//	        orElseThrow(() -> new BlogNotFoundException(name.toString()));
 	    }
 	@Transactional(readOnly=true)
 	public List<Blog> getAll() {
