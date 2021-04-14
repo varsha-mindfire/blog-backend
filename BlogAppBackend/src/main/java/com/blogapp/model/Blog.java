@@ -25,40 +25,13 @@ public class Blog {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 private String id;
 private String title;
-private String section;
+private String category;
 private String description;
-//private User user;
+private String createDate;
+private String url;
 
 private String username;
 public Blog() {}
-
-//public Blog(String title, String section, String description, Instant createDate, String username, User user,
-//		Instant createdDate) {
-//	super();
-//	this.title = title;
-//	this.section = section;
-//	this.description = description;
-//	this.createDate = createDate;
-//	this.username = username;
-//	this.user = user;
-//	this.createdDate = createdDate;
-//}
-
-//public User getUser() {
-//	return user;
-//}
-//
-//public void setUser(User user) {
-//	this.user = user;
-//}
-
-//public Instant getCreatedDate() {
-//	return createdDate;
-//}
-//
-//public void setCreatedDate(Instant createdDate) {
-//	this.createdDate = createdDate;
-//}
 
 public void setId(String id) {
 	this.id=id;
@@ -74,11 +47,11 @@ public String getTitle() {
 public void setTitle(String title) {
 	this.title = title;
 }
-public String getSection() {
-	return section;
+public String getCategory() {
+	return category;
 }
-public void setSection(String section) {
-	this.section = section;
+public void setCategory(String section) {
+	this.category = section;
 }
 public String getDescription() {
 	return description;
@@ -86,12 +59,7 @@ public String getDescription() {
 public void setDescription(String description) {
 	this.description = description;
 }
-//public Instant getCreateDate() {
-//	return createDate;
-//}
-//public void setCreateDate(Instant createDate) {
-//	this.createDate = createDate;
-//}
+
 public String getUsername() {
 	return username;
 }
@@ -99,12 +67,19 @@ public void setUsername(String username) {
 	this.username = username;
 }
 
-//public User getUser() {
-//	return user;
-//}
-//
-//public void setUser(User user) {
-//	this.user = user;
-//}
+public String getUrl() {
+	return url;
+}
 
+public void setUrl(String url) {
+	this.url = url;
+}
+
+public String getCreateDate() {
+	return createDate;
+}
+
+public void setCreateDate(String createDate) {
+	this.createDate = createDate;
+}
 }

@@ -54,10 +54,11 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter{ //provides a
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(entryPoint)
 		.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-		.and().authorizeRequests().antMatchers("/api/auth/**").permitAll()
-		.antMatchers("/api/test/**").permitAll().antMatchers("blog/by-user/**")
-		.permitAll().antMatchers("/blog").permitAll().antMatchers("/comments")
-		.permitAll()
+		.and().authorizeRequests()
+		.antMatchers("/api/auth/**").permitAll()
+		.antMatchers("/api/blogs").permitAll()
+		.antMatchers("/api/blogs/**").permitAll()
+		.antMatchers("/comments").permitAll()
 		.antMatchers("/v2/api-docs",
 				"/configuration/ui",
 				"/swagger-resources/**",

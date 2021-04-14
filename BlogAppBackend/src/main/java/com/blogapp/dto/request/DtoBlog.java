@@ -1,23 +1,22 @@
  package com.blogapp.dto.request;
 
-import java.time.Instant;
-
 import lombok.Builder;
 @Builder
 public class DtoBlog {
 	private String id;
 	private String title;
-	private String section;
+	private String category;
 	private String description;
-	private Instant createDate;
+	private String createDate;
+	private String url;
 	public DtoBlog() {}
-	public DtoBlog(String title, String section, String description, Instant createDate) {
+	public DtoBlog(String title, String section, String description, String createDate, String url) {
 		super();
 		this.title = title;
-		this.section = section;
+		this.category = section;
 		this.description = description;
 		this.createDate = createDate;
-		
+		this.setUrl(url);
 	}
 	
 	public String getId() {
@@ -36,12 +35,12 @@ public class DtoBlog {
 		this.title = title;
 	}
 	
-	public String getSection() {
-		return section;
+	public String getCategory() {
+		return category;
 	}
 	
-	public void setSection(String section) {
-		this.section = section;
+	public void setCategory(String section) {
+		this.category = section;
 	}
 	
 	public String getDescription() {
@@ -52,11 +51,17 @@ public class DtoBlog {
 		this.description = description;
 	}
 	
-	public Instant getCreateDate() {
+	public String getCreateDate() {
 		return createDate;
 	}
 	
-	public void setCreateDate(Instant createDate) {
+	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
 	}
 }

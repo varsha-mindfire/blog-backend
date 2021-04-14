@@ -3,18 +3,12 @@ package com.blogapp.dto.response;
 public class BlogResponse {
 	private String id;
     private String title;
-    private String section;
+    private String category;
     private String description;
     private String userName;
+    private String createDate;
+    private String url;
     public BlogResponse() {}
-	
-//	public BlogResponse(String id, String title, String section, String description, String userName) {
-//		this.id = id;
-//		this.title = title;
-//		this.section = section;
-//		this.description = description;
-//		this.userName = userName;
-//	}
 	
 	public String getId() {
 		return id;
@@ -28,11 +22,11 @@ public class BlogResponse {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getSection() {
-		return section;
+	public String getCategory() {
+		return category;
 	}
-	public void setSection(String section) {
-		this.section = section;
+	public void setCategory(String section) {
+		this.category = section;
 	}
 	public String getDescription() {
 		return description;
@@ -47,6 +41,19 @@ public class BlogResponse {
 		this.userName = userName;
 	}
 
+	public String getCreateDate() {
+		return createDate;
+	}
 
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
+	}
 
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
 }

@@ -21,7 +21,7 @@ import com.blogapp.services.CommentService;
 
 
 @RestController
-@RequestMapping("/comments")
+@RequestMapping("/api/comments")
 public class CommentController {
 	@Autowired
 	CommentService commentservice;
@@ -34,11 +34,11 @@ public class CommentController {
 		commentservice.save(commentdto);
 		return ResponseEntity.ok(new MessageResponse("Comment added successfully!"));
 	}
-	 @GetMapping("/by-blog/{id}")
+	 @GetMapping("/id/{id}")
 	    public ResponseEntity<List<Comment>> getBlogByBlogid(@PathVariable String id) {
 	        return ResponseEntity.status(HttpStatus.OK).body(commentservice.getAllCommentsForPost(id));
 	    }
-	 @GetMapping("by-user/{username}")
+	 @GetMapping("/{username}")
 	    public ResponseEntity<List<Comment>> getBlogByUsername(@PathVariable String username) {
 	        return ResponseEntity.status(HttpStatus.OK).body(commentservice.getAllCommentsForUser(username));
 	    }}

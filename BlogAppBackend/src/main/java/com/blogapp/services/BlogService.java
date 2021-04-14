@@ -25,13 +25,14 @@ public class BlogService{
 		String currentPrincipalName = authentication.getName();
 		Blog b =new Blog();
 		b.setTitle(dtoBlog.getTitle());
-		b.setSection(dtoBlog.getSection());
+		b.setCategory(dtoBlog.getCategory());
 		b.setDescription(dtoBlog.getDescription());
+		b.setCreateDate(dtoBlog.getCreateDate());
+		b.setUrl(dtoBlog.getUrl());
 		b.setUsername(currentPrincipalName);
 		Blog c=blogRepository.save(b);
 		dtoBlog.setId(c.getId());
-		//text comment
-		//text
+		
 		return dtoBlog; 
 	}
 	   @Transactional(readOnly = true)
