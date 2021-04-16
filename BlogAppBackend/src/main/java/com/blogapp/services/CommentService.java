@@ -1,12 +1,11 @@
 package com.blogapp.services;
 
+import java.time.Instant;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,19 +30,23 @@ public class CommentService {
 	
 	public void save(DtoComment comrequest) {
 	Optional<Blog> blog=blogRepository.findById(comrequest.getBlogId());
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String name=authentication.getName();
+	    Instant instant = Instant.now();
 		Comment c = new Comment();
 		
 		if(blog.isPresent()) {
 			Blog b=blog.get();
 			String id=b.getId();
 			c.setBlogid(id);
-			c.setUsername(name);
+			c.setUsername(comrequest.getUsername());
 			c.setComment(comrequest.getComment());
+			c.setCreateDate(instant);
+
+			commentRepository.save(c);
+			}
+		else {
+			throw new ResourceNotFoundException("id not found");
 		}
 		
-		commentRepository.save(c);
 	}
 	
 	   @Transactional(readOnly = true)

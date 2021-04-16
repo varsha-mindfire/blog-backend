@@ -1,5 +1,6 @@
 package com.blogapp.services;
 
+import java.time.Instant;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +31,16 @@ public class LikeService {
 			throw new ResourceNotFoundException("you already voted");
 		}
 		if(likerequest.getLike()==1) {
+			Instant instant = Instant.now();
 			blog1.setLikeCount(blog1.getLikeCount()+1);
 			like.setLike(likerequest.getLike());
 			like.setBlogId(blog1.getId());
-			like.setUsername(name);
+			like.setUsername(likerequest.getUsername());
+			like.setCreateDate(instant);
         	
+		}
+		else {
+			blog1.setLikeCount(blog1.getLikeCount()-1);
 		}
 			likeRepository.save(like);
 			blogRepository.save(blog1);

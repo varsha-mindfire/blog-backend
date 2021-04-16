@@ -1,5 +1,7 @@
 package com.blogapp.model;
 
+import java.time.Instant;
+
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection="comments")
@@ -8,10 +10,11 @@ public class Comment {
 	private String comment;
 	private String blogid;
 	private String username;
+	private Instant createDate;
 	
 	public Comment() {}
 	
-	public Comment(String id, String comment, String blogid,String username) {
+	public Comment(String id, String comment, String blogid,String username,Instant createDate) {
 		this.id = id;
 		this.comment = comment;
 		this.blogid = blogid;
@@ -52,6 +55,14 @@ public class Comment {
 	
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+
+	public Instant getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Instant createDate) {
+		this.createDate = createDate;
 	}
 	
 }
