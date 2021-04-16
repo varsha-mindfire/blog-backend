@@ -18,6 +18,4 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint{
 		response.sendError(401,"Unauthorized");
 		
 	}
-	
-
 }

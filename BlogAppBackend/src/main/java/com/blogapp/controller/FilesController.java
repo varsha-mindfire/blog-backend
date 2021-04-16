@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
-import com.blogapp.dto.response.ResponseMessage;
+import com.blogapp.dto.response.MessageResponse;
 import com.blogapp.model.FileInfo;
 import com.blogapp.services.FilesStorageService;
 
@@ -29,16 +29,16 @@ public class FilesController {
   FilesStorageService storageService;
 
   @PostMapping("/upload")
-  public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
+  public ResponseEntity<MessageResponse> uploadFile(@RequestParam("file") MultipartFile file) {
     String message = "";
     try {
       storageService.save(file);
 
       message = "Uploaded the file successfully: " + file.getOriginalFilename();
-      return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
+      return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(message));
     } catch (Exception e) {
       message = "Could not upload the file: " + file.getOriginalFilename() + "!";
-      return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
+      return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new MessageResponse(message));
     }
   }
 

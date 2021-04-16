@@ -10,10 +10,10 @@ public class DtoBlog {
 	private String createDate;
 	private String url;
 	public DtoBlog() {}
-	public DtoBlog(String title, String section, String description, String createDate, String url) {
+	public DtoBlog(String title, String category, String description, String createDate, String url) {
 		super();
 		this.title = title;
-		this.category = section;
+		this.category = category;
 		this.description = description;
 		this.createDate = createDate;
 		this.setUrl(url);
@@ -39,8 +39,8 @@ public class DtoBlog {
 		return category;
 	}
 	
-	public void setCategory(String section) {
-		this.category = section;
+	public void setCategory(String category) {
+		this.category = category;
 	}
 	
 	public String getDescription() {
@@ -58,9 +58,11 @@ public class DtoBlog {
 	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
+	
 	public String getUrl() {
 		return url;
 	}
+	
 	public void setUrl(String url) {
 		this.url = url;
 	}
