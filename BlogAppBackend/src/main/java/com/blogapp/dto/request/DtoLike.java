@@ -4,13 +4,15 @@ public class DtoLike {
 	private String id;
 	private Integer like;
 	private String blogId;
+	private String username;
 	
 	public DtoLike() {}
 	
-	public DtoLike(String id, Integer like, String blogId) {
+	public DtoLike(String id, Integer like, String blogId,String username) {
 		this.id = id;
 		this.like = like;
 		this.blogId = blogId;
+		this.username=username;
 	}
 	
 	public String getId() {
@@ -36,6 +38,15 @@ public class DtoLike {
 	public void setBlogId(String blogId) {
 		this.blogId = blogId;
 	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
 	
 }
 	

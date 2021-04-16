@@ -1,15 +1,24 @@
 package com.blogapp.dto.request;
 
+import java.time.Instant;
+
 public class DtoComment {
 	private String id;
 	private String blogId;
 	private String comment;
-
-	public DtoComment(String blogId, String comment) {
-	this.blogId = blogId;
-	this.comment = comment;
-}
+	private Instant createdDate;
+	private String username;
 	
+	
+	
+	public DtoComment(String blogId, String comment, Instant createdDate, String username) {
+		super();
+		this.blogId = blogId;
+		this.comment = comment;
+		this.createdDate = createdDate;
+		this.username = username;
+	}
+
 	public String getId() {
 		return id;
 	}
@@ -33,5 +42,22 @@ public class DtoComment {
 	public void setBlogId(String blogId) {
 		this.blogId = blogId;
 	}
+
+	public Instant getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Instant createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
 	
 }
