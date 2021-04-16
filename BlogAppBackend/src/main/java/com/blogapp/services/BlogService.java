@@ -25,12 +25,14 @@ public class BlogService{
 		String currentPrincipalName = authentication.getName();
 		Blog b =new Blog();
 		b.setTitle(dtoBlog.getTitle());
-		b.setSection(dtoBlog.getSection());
+		b.setCategory(dtoBlog.getCategory());
 		b.setDescription(dtoBlog.getDescription());
+		b.setUrl(dtoBlog.getUrl());
+		b.setCreateDate(dtoBlog.getCreateDate());
 		b.setUsername(currentPrincipalName);
-//		b.setLikeCount(0);
 		blogRepository.save(b); 
 	}
+	
 	   @Transactional(readOnly = true)
 	    public Blog getBlog(String id) {
 	        Optional<Blog> blog=blogRepository.findById(id);
@@ -38,6 +40,7 @@ public class BlogService{
 	    		throw new ResourceNotFoundException(Message.BLOG_NOT_FOUND);
 	        return blog.get();
 	    }
+	   
 	   @Transactional(readOnly = true)
 	    public List<Blog> getBlogByName(String name) {
 		   List<Blog> emptylst = Collections.emptyList();
@@ -47,15 +50,17 @@ public class BlogService{
 		    	  return emptylst;
 		        return blog;
 	    }
-	@Transactional(readOnly=true)
-	public List<Blog> getAll() {
-		return blogRepository.findAll();
-	}
-	public void updateBlog(String id, Blog blog) {
-        Blog BlogFromDb = blogRepository.findById(id).get();
-        BlogFromDb.setTitle(blog.getTitle());
-        BlogFromDb.setSection(blog.getSection());
-        BlogFromDb.setDescription(blog.getDescription());
-        blogRepository.save(BlogFromDb);
-    }
+	   
+		@Transactional(readOnly=true)
+		public List<Blog> getAll() {
+			return blogRepository.findAll();
+		}
+		
+		public void updateBlog(String id, Blog blog) {
+	        Blog BlogFromDb = blogRepository.findById(id).get();
+	        BlogFromDb.setTitle(blog.getTitle());
+	        BlogFromDb.setCategory(blog.getCategory());
+	        BlogFromDb.setDescription(blog.getDescription());
+	        blogRepository.save(BlogFromDb);
+	    }
 }

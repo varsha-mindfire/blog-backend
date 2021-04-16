@@ -7,6 +7,5 @@ public interface Message {
 	public final String ROLE_NOT_FOUND = "Error: Role is not found.";
 	public final String BLOG_NOT_FOUND = "Error: Blog is not found.";
 	public final String USER_NOT_FOUND = "Error: user is not found.";
-	
 	public final String USER_REGISTERED = "User registered successfully! !";
 }

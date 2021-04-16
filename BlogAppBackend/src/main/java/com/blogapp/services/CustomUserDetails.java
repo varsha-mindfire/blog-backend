@@ -134,7 +134,6 @@ public class CustomUserDetails implements UserDetails{
 			});
 		}
 			
-		
 		user.setRoles(roles);
 		userRepository.save(user);
 		return ResponseEntity.ok(new MessageResponse(Message.USER_REGISTERED));

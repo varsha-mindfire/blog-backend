@@ -3,10 +3,12 @@ package com.blogapp.dto.request;
 import java.util.Set;
 
 public class DtoSignupRequest {
+	
 	private String username;
 	 private String email;
 	 private Set<String> role;
 	 private String password;
+	 
 	  public String getUsername() {
 	        return username;
 	    }

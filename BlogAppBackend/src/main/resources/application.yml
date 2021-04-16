@@ -1,11 +1,15 @@
 #configure database
 spring:
+  servlet:
+        multipart:
+            max-file-size: 1MB
+            max-request-size: 1MB
   data:
     mongodb:
-#      uri: mongodb+srv://admin:admin%40123@cluster0.885ps.mongodb.net/blogdb?retryWrites=true&w=majority
-      database: database1
-      host: localhost
-      port: 27017
+      uri: mongodb+srv://admin:admin%40123@cluster0.885ps.mongodb.net/blogdb?retryWrites=true&w=majority
+      database: blogdb
+      #host: localhost
+      #port: 27017
   datasource:
     url: jdbc:mysql://localhost:3306/mydb1?serverTimeZone=UTC
     username: root
@@ -19,8 +23,12 @@ spring:
         dialect: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
 server:
-  port: 8096
+  port: 8080
 pass:
   app:
     jwtSecret: varshaSecretKey
     jwtExpirationMs: 86400000
+## File Storage Properties
+# All files uploaded through the REST API will be stored in this directory
+file:
+    upload-dir: /Users/callicoder/uploads
