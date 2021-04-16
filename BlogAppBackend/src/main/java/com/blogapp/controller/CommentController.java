@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.blogapp.dto.request.DtoComment;
 import com.blogapp.dto.response.MessageResponse;
-import com.blogapp.model.Blog;
 import com.blogapp.model.Comment;
 import com.blogapp.repo.CommentRepository;
 import com.blogapp.services.CommentService;
@@ -22,6 +22,7 @@ import com.blogapp.services.CommentService;
 
 @RestController
 @RequestMapping("/api/comments")
+@CrossOrigin("http://localhost:4200")
 public class CommentController {
 	@Autowired
 	CommentService commentservice;

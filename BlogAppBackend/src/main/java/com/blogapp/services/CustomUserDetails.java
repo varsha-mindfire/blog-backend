@@ -120,11 +120,15 @@ public class CustomUserDetails implements UserDetails{
 					Role adminRole = roleRepository.findByName(Erole.ROLE_ADMIN)
 							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 					roles.add(adminRole);
-					break;
-				default:
 					Role userRole = roleRepository.findByName(Erole.ROLE_USER)
 							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 					roles.add(userRole);
+					break;
+				default:
+					throw new RuntimeException("Error: Role is not found.");
+//					Role userRole = roleRepository.findByName(Erole.ROLE_USER)
+//							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+//					roles.add(userRole);
 				}
 			});
 		}

@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -19,10 +20,12 @@ public class FilesStorageServiceImpl implements FilesStorageService {
 
   private final Path root = Paths.get("D:\\uploads");
 
+  @Value("${basepath}")
+  String basepath;
   @Override
   public void init() {
     try {
-      Files.createDirectory(root);
+      Files.createDirectory((root));
     } catch (IOException e) {
       throw new RuntimeException("Could not initialize folder for upload!");
     }

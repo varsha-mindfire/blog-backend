@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.blogapp.dto.request.DtoComment;
-import com.blogapp.exception.BlogNotFoundException;
 import com.blogapp.model.Blog;
 import com.blogapp.model.Comment;
 import com.blogapp.repo.BlogRepository;

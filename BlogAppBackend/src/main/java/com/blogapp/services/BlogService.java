@@ -1,7 +1,6 @@
 package com.blogapp.services;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.blogapp.dto.request.DtoBlog;
-import com.blogapp.dto.response.BlogResponse;
 import com.blogapp.exception.BlogNotFoundException;
 import com.blogapp.model.Blog;
 import com.blogapp.repo.BlogRepository;
