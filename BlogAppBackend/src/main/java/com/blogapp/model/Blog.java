@@ -27,6 +27,7 @@ private String id;
 private String title;
 private String section;
 private String description;
+private Integer likeCount=0;
 //private User user;
 
 private String username;
@@ -64,6 +65,14 @@ public void setId(String id) {
 	this.id=id;
 	
 }
+public Integer getLikeCount() {
+	return likeCount;
+}
+
+public void setLikeCount(Integer likeCount) {
+	this.likeCount = likeCount;
+}
+
 public String getId() {
 	return id;
 	

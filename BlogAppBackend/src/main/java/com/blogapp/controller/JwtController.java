@@ -40,7 +40,6 @@ public class JwtController {
 
 		@PostMapping("/signup")
 		 public ResponseEntity<?> signup(@RequestBody DtoSignupRequest dtoSignupRequest) {
-			customeruserdetails.registerUser(dtoSignupRequest);
-			return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+			return customeruserdetails.registerUser(dtoSignupRequest);
 	    }
 }

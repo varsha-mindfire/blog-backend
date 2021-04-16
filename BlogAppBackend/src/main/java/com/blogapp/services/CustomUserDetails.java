@@ -21,19 +21,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.blogapp.constants.Message;
 import com.blogapp.dto.request.DtoLoginRequest;
 import com.blogapp.dto.request.DtoSignupRequest;
 import com.blogapp.dto.response.JwtResponse;
 import com.blogapp.dto.response.MessageResponse;
+import com.blogapp.exception.RoleNotFoundException;
 import com.blogapp.helper.JwtUtil;
 import com.blogapp.model.Erole;
 import com.blogapp.model.Role;
 import com.blogapp.model.User;
 import com.blogapp.repo.RoleRepository;
 import com.blogapp.repo.UserRepository;
-
-
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 @Service
 public class CustomUserDetails implements UserDetails{
@@ -92,14 +91,15 @@ public class CustomUserDetails implements UserDetails{
 		if (userRepository.existsByUsername(signuprequest.getUsername())) {
 			return ResponseEntity
 					.badRequest()
-					.body(new MessageResponse("Error: Username is already taken!"));
+					.body(new MessageResponse(Message.USERNAME_EXISTS));
 		}
 
 		if (userRepository.existsByEmail(signuprequest.getEmail())) {
 			return ResponseEntity
 					.badRequest()
-					.body(new MessageResponse("Error: Email is already in use!"));
+					.body(new MessageResponse(Message.EMAIL_EXISTS));
 		}
+		
 
 		// Create new user's account
 		User user = new User( 
@@ -111,9 +111,11 @@ public class CustomUserDetails implements UserDetails{
 		Set<Role> roles = new HashSet<>();
 		if (strRoles == null) {
 			Role userRole = roleRepository.findByName(Erole.ROLE_USER)
-					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+					.orElseThrow(() -> new RoleNotFoundException(Message.ROLE_NOT_FOUND));
 			roles.add(userRole);
-		} else {
+		} else 
+			
+		{
 			strRoles.forEach(role -> {
 				switch (role) {
 				case "admin":
@@ -121,16 +123,21 @@ public class CustomUserDetails implements UserDetails{
 							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 					roles.add(adminRole);
 					break;
-				default:
+				case "user":
 					Role userRole = roleRepository.findByName(Erole.ROLE_USER)
-							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 					roles.add(userRole);
+					break;
+				default:
+					throw new RoleNotFoundException(Message.ROLE_NOT_FOUND);
 				}
 			});
 		}
+			
+		
 		user.setRoles(roles);
 		userRepository.save(user);
-		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+		return ResponseEntity.ok(new MessageResponse(Message.USER_REGISTERED));
 	}
 	
 	//for authenticating users

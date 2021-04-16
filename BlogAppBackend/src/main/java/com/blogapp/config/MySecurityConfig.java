@@ -3,6 +3,7 @@ package com.blogapp.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -55,8 +56,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter{ //provides a
 		http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(entryPoint)
 		.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 		.and().authorizeRequests().antMatchers("/api/auth/**").permitAll()
-		.antMatchers("/api/test/**").permitAll().antMatchers("blog/by-user/**")
-		.permitAll().antMatchers("/blog").permitAll().antMatchers("/comments")
+		.antMatchers("/api/blogs/**").permitAll().antMatchers("/api/blogs/")
 		.permitAll()
 		.antMatchers("/v2/api-docs",
 				"/configuration/ui",
