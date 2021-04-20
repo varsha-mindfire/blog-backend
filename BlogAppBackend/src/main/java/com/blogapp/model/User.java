@@ -29,6 +29,8 @@ public class User {
 	private String username;
 	
 	private String password;
+	private Integer blogcount;
+	
 	
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(	name = "user_roles", 

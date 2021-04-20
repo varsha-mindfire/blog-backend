@@ -56,7 +56,7 @@ public class BlogController {
 	        return ResponseEntity.status(HttpStatus.OK).body(blogservice.getBlogByName(name));
 	    }
 	 
-	 @PutMapping({"/{id}"})
+	 @PutMapping({"id/{id}"})
 	    public ResponseEntity<Blog> updateTodo(@PathVariable("id") String id, @RequestBody Blog blog) {
 	        blogservice.updateBlog(id, blog);
 	        return new ResponseEntity<>(blogservice.getBlog(id), HttpStatus.OK);

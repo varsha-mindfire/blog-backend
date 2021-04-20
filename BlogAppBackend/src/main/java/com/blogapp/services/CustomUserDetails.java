@@ -17,8 +17,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.blogapp.constants.Message;
@@ -160,6 +162,21 @@ public class CustomUserDetails implements UserDetails{
 												 userDetails.getEmail(), 
 												 roles));
 	}
+//    public String getCurrentUser() {
+//        org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.
+//                getContext().getAuthentication().getPrincipal();
+//        Optional<User> user =userRepository.findByUsername(principal.getUsername());
+//       return user.get().getUsername()
+//    		   .orElseThrow(() -> new UsernameNotFoundException("User name not found - " + principal.getUsername()));
+//    }
+    @Transactional(readOnly = true)
+    public User getCurrentUser() {
+//        org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.
+//                getContext().getAuthentication().getPrincipal();
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return userRepository.findByUsername(authentication.getName())
+                .orElseThrow(() -> new UsernameNotFoundException("User name not found - " + authentication.getName()));
+    }
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

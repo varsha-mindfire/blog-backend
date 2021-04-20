@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,16 +30,21 @@ public class CommentService {
 	@Autowired
 	UserRepository userRepository;
 	
+	@Autowired
+	CustomUserDetails customUserDetails;
+	
 	public void save(DtoComment comrequest) {
 	Optional<Blog> blog=blogRepository.findById(comrequest.getBlogId());
 	    Instant instant = Instant.now();
 		Comment c = new Comment();
-		
+//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//		String name=authentication.getName();
+//		
 		if(blog.isPresent()) {
 			Blog b=blog.get();
 			String id=b.getId();
 			c.setBlogid(id);
-			c.setUsername(comrequest.getUsername());
+			c.setUsername(customUserDetails.getCurrentUser().getUsername());
 			c.setComment(comrequest.getComment());
 			c.setCreateDate(instant);
 
