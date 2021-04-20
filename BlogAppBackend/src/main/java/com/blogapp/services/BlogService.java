@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -57,10 +58,15 @@ public class BlogService{
 		}
 		
 		public void updateBlog(String id, Blog blog) {
-	        Blog BlogFromDb = blogRepository.findById(id).get();
-	        BlogFromDb.setTitle(blog.getTitle());
-	        BlogFromDb.setCategory(blog.getCategory());
-	        BlogFromDb.setDescription(blog.getDescription());
-	        blogRepository.save(BlogFromDb);
+	        Optional<Blog> BlogFromDb = blogRepository.findById(id);
+	        if(BlogFromDb.isPresent()) {
+	        		Blog blogdb=BlogFromDb.get();
+		        	blogdb.setTitle(blog.getTitle());
+		 	        blogdb.setCategory(blog.getCategory());
+		 	        blogdb.setDescription(blog.getDescription());
+		 	        blogdb.setCreateDate(blog.getCreateDate());
+		 	        blogRepository.save(blogdb);
+	        }
+	        
 	    }
 }

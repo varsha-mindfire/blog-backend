@@ -12,7 +12,6 @@ public class DtoComment {
 	
 	
 	public DtoComment(String blogId, String comment, Instant createdDate, String username) {
-		super();
 		this.blogId = blogId;
 		this.comment = comment;
 		this.createdDate = createdDate;
