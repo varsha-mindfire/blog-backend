@@ -37,17 +37,11 @@ public class CommentService {
 	Optional<Blog> blog=blogRepository.findById(comrequest.getBlogId());
 	    Instant instant = Instant.now();
 		Comment c = new Comment();
-//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//		String name=authentication.getName();
-//		
 		if(blog.isPresent()) {
-			Blog b=blog.get();
-			String id=b.getId();
-			c.setBlogid(id);
+			c.setBlogid(blog.get().getId());
 			c.setUsername(customUserDetails.getCurrentUser().getUsername());
 			c.setComment(comrequest.getComment());
 			c.setCreateDate(instant);
-
 			commentRepository.save(c);
 			}
 		else {
@@ -59,9 +53,9 @@ public class CommentService {
 	   @Transactional(readOnly = true)
 	    public List<Comment> getAllCommentsForPost(String id) {
 	        List<Comment> comment= commentRepository.findByBlogid(id);
-	        if(comment.isEmpty()) {
-	        	throw new ResourceNotFoundException("No comments found");
-	        }
+//	        if(comment.isEmpty()) {
+//	        	throw new ResourceNotFoundException("No comments found");
+//	        }
 	        return comment;
 	    }
 	   
