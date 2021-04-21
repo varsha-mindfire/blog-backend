@@ -19,7 +19,13 @@ public class LikeController {
 	
 	@PostMapping("/likeblog")
 	public ResponseEntity<MessageResponse> createLike(@RequestBody DtoLike likedto) {
-		likeService.save(likedto);
+		Integer p=likeService.save(likedto);
+		if(p==1) {
 		return ResponseEntity.ok(new MessageResponse("Like added successfully!"));
 	}
+		else {
+			return ResponseEntity.ok(new MessageResponse("Like removed successfully!"));
+		}
+			
+		}
 }
