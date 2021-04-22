@@ -40,10 +40,10 @@ public class BlogController {
 	   return  ResponseEntity.status(HttpStatus.OK).body(blogservice.getAll());
 	}  
 
-	@RequestMapping(value = "{username}/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "id/{id}", method = RequestMethod.GET)
 
-	    public ResponseEntity<Blog> getBlogByBlogid(@PathVariable String id,@PathVariable String username) {
-	        return ResponseEntity.status(HttpStatus.OK).body(blogservice.getBlog(id, username));
+	    public ResponseEntity<Blog> getBlogByBlogid(@PathVariable String id) {
+	        return ResponseEntity.status(HttpStatus.OK).body(blogservice.getBlog(id));
 	}
 	
 	 @GetMapping("/{name}")

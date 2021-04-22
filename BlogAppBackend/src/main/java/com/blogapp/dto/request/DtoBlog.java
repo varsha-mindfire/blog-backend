@@ -1,5 +1,4 @@
  package com.blogapp.dto.request;
-
 public class DtoBlog {
 	private String id;
 	private String title;
