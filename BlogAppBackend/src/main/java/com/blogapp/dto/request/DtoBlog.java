@@ -1,7 +1,5 @@
  package com.blogapp.dto.request;
 
-import lombok.Builder;
-@Builder
 public class DtoBlog {
 	private String id;
 	private String title;

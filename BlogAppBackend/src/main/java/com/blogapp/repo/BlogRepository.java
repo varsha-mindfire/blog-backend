@@ -11,6 +11,7 @@ public interface BlogRepository extends MongoRepository<Blog, String> {
 	List<Blog> findByTitle(String title);
 	Optional<Blog> findById(String id);
 	List<Blog> findByUsername(String username);
+	Optional<Blog> findTopByIdAndUsernameOrderByIdDesc(String id, String username);
 
 	
 }

@@ -5,11 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,8 +29,6 @@ public class BlogController {
 	
 	@Autowired
 	BlogRepository blogRepository;
-	
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	@RequestMapping(value="createblog",method=RequestMethod.POST)
 	public ResponseEntity<MessageResponse> createComment(@RequestBody DtoBlog blogdto) {
 		blogservice.saveBlog(blogdto);
@@ -44,28 +40,23 @@ public class BlogController {
 	   return  ResponseEntity.status(HttpStatus.OK).body(blogservice.getAll());
 	}  
 
-	@RequestMapping(value = "id/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "{username}/{id}", method = RequestMethod.GET)
 
-	    public ResponseEntity<Blog> getBlogByBlogid(@PathVariable String id) {
-	        return ResponseEntity.status(HttpStatus.OK).body(blogservice.getBlog(id));
-		
+	    public ResponseEntity<Blog> getBlogByBlogid(@PathVariable String id,@PathVariable String username) {
+	        return ResponseEntity.status(HttpStatus.OK).body(blogservice.getBlog(id, username));
 	}
 	
 	 @GetMapping("/{name}")
 	    public ResponseEntity<List<Blog>> getBlogByUsername(@PathVariable String name) {
 	        return ResponseEntity.status(HttpStatus.OK).body(blogservice.getBlogByName(name));
 	    }
-	 
-	 @PutMapping({"id/{id}"})
-	    public ResponseEntity<Blog> updateTodo(@PathVariable("id") String id, @RequestBody Blog blog) {
-	        blogservice.updateBlog(id, blog);
-	        return new ResponseEntity<>(blogservice.getBlog(id), HttpStatus.OK);
-	    }
-//	 @PutMapping({"id/{username}"})
-//	    public ResponseEntity<Blog> updateTodo(@PathVariable("username") String username, @RequestBody Blog blog) {
-//	        blogservice.updateBlog(username, blog);
+	 //don't remove it working on it
+//	 @PutMapping({"id/{id}"})
+//	    public ResponseEntity<Blog> updateTodo(@PathVariable("id") String id, @RequestBody Blog blog) {
+//	        blogservice.updateBlog(id, blog);
 //	        return new ResponseEntity<>(blogservice.getBlog(id), HttpStatus.OK);
 //	    }
+
 	 }
 
 

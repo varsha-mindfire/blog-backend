@@ -7,7 +7,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,12 +14,15 @@ import com.blogapp.constants.Message;
 import com.blogapp.dto.request.DtoBlog;
 import com.blogapp.exception.ResourceNotFoundException;
 import com.blogapp.model.Blog;
+import com.blogapp.model.User;
 import com.blogapp.repo.BlogRepository;
+import com.blogapp.repo.UserRepository;
 @Service
 public class BlogService{
 	@Autowired
 	private BlogRepository blogRepository;
-	
+	@Autowired
+	private UserRepository userRepository;	
 	public void saveBlog(DtoBlog dtoBlog) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String currentPrincipalName = authentication.getName();
@@ -31,12 +33,15 @@ public class BlogService{
 		b.setUrl(dtoBlog.getUrl());
 		b.setCreateDate(dtoBlog.getCreateDate());
 		b.setUsername(currentPrincipalName);
+		Optional<User> user=userRepository.findByUsername(currentPrincipalName);
+		user.get().setBlogcount(user.get().getBlogcount()+1);
 		blogRepository.save(b); 
+		userRepository.save(user.get());
 	}
 	
 	   @Transactional(readOnly = true)
-	    public Blog getBlog(String id) {
-	        Optional<Blog> blog=blogRepository.findById(id);
+	    public Blog getBlog(String id,String name) {
+		   Optional<Blog> blog=blogRepository.findTopByIdAndUsernameOrderByIdDesc(id, name);
 	        if (!blog.isPresent())
 	    		throw new ResourceNotFoundException(Message.BLOG_NOT_FOUND);
 	        return blog.get();
@@ -45,11 +50,12 @@ public class BlogService{
 	   @Transactional(readOnly = true)
 	    public List<Blog> getBlogByName(String name) {
 		   List<Blog> emptylst = Collections.emptyList();
-		   
 		   List<Blog> blog =blogRepository.findByUsername(name);
 		      if (blog.isEmpty())
 		    	  return emptylst;
+		      else {
 		        return blog;
+		      }
 	    }
 	   
 		@Transactional(readOnly=true)

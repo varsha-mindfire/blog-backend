@@ -55,8 +55,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter{ //provides a
 		http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(entryPoint)
 		.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 		.and().authorizeRequests().antMatchers("/api/auth/**").permitAll()
-		.antMatchers("/api/blogs/**").permitAll().antMatchers("/api/blogs/")
-		.permitAll()
+		.antMatchers("/api/blogs/**").fullyAuthenticated().antMatchers("/api/blogs/").fullyAuthenticated()
 		.antMatchers("/v2/api-docs",
 				"/configuration/ui",
 				"/swagger-resources/**",

@@ -4,11 +4,8 @@ import java.time.Instant;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import com.blogapp.dto.request.DtoLike;
-import com.blogapp.exception.ResourceNotFoundException;
 import com.blogapp.model.Blog;
 import com.blogapp.model.Like;
 import com.blogapp.repo.BlogRepository;
@@ -49,5 +46,15 @@ public class LikeService {
 		}
 		return C;
 			
+	}
+	public Boolean fetchDetail(String blogId,String username) {
+		Optional<Like> voteByBlogAndUser = likeRepository.findTopByBlogIdAndUsernameOrderByIdDesc(blogId,username);
+		if(voteByBlogAndUser.isEmpty()) {
+			return false;
+		}
+		else {
+			return true;
+		}
+		
 	}
 }
