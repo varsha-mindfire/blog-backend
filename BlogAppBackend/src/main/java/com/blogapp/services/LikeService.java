@@ -1,10 +1,12 @@
 package com.blogapp.services;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.blogapp.dto.request.DtoLike;
 import com.blogapp.model.Blog;
 import com.blogapp.model.Like;
@@ -47,14 +49,14 @@ public class LikeService {
 		return C;
 			
 	}
-	public Boolean fetchDetail(String blogId,String username) {
-		Optional<Like> voteByBlogAndUser = likeRepository.findTopByBlogIdAndUsernameOrderByIdDesc(blogId,username);
-		if(voteByBlogAndUser.isEmpty()) {
-			return false;
+	public Boolean fetchDetail(String blogId) {
+		Optional<Like> det=likeRepository.findByBlogIdAndUsername(blogId,customUserDetails.getCurrentUser().getUsername());
+		if(det.isPresent()) {
+			return true;
+
 		}
 		else {
-			return true;
+			return false;
 		}
-		
 	}
 }

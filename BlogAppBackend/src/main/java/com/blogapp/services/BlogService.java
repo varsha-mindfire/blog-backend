@@ -40,8 +40,8 @@ public class BlogService{
 	}
 	
 	   @Transactional(readOnly = true)
-	    public Blog getBlog(String id,String name) {
-		   Optional<Blog> blog=blogRepository.findTopByIdAndUsernameOrderByIdDesc(id, name);
+	    public Blog getBlog(String id) {
+		   Optional<Blog> blog=blogRepository.findById(id);
 	        if (!blog.isPresent())
 	    		throw new ResourceNotFoundException(Message.BLOG_NOT_FOUND);
 	        return blog.get();

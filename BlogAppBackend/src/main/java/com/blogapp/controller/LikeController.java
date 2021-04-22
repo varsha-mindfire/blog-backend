@@ -32,24 +32,15 @@ public class LikeController {
 		}
 			
 		}
-	@GetMapping("/likeblog/{username}/{blogId}")
-	public Boolean fetchLikeDetails(@PathVariable String blogId, @PathVariable String username) {
-		if(likeService.fetchDetail(blogId,username)) {
+	@GetMapping("/likeblog/{blogId}")
+	public Boolean fetchLikeDetails(@PathVariable String blogId) {
+		if(likeService.fetchDetail(blogId)==true) {
 			return true;
 		}
 		else {
 			return false;
 			
 		}
-//		@GetMapping("/likeblog")
-//		public ResponseEntity<MessageResponse> fetchLikeDetails(String blogId,String username) {
-//			if(likeService.fetchDetail(blogId,username)==true) {
-//				return ResponseEntity.ok(new MessageResponse("details fetched"));
-//			}
-//			else {
-//				return ResponseEntity.ok(new MessageResponse("no details available"));
-//				
-//			}
-//	}
 }
 }
+

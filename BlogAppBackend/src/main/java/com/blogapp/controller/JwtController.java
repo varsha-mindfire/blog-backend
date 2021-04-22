@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.blogapp.dto.request.DtoLoginRequest;
 import com.blogapp.dto.request.DtoSignupRequest;
-import com.blogapp.dto.response.MessageResponse;
 import com.blogapp.repo.RoleRepository;
 import com.blogapp.repo.UserRepository;
 import com.blogapp.services.CustomUserDetails;
