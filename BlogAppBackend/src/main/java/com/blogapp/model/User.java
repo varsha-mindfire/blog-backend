@@ -29,7 +29,7 @@ public class User {
 	private String username;
 	
 	private String password;
-	private Integer blogcount;
+	private Integer blogcount=0;
 	
 	
 	@ManyToMany(fetch = FetchType.LAZY)
@@ -85,5 +85,14 @@ public class User {
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
+
+	public Integer getBlogcount() {
+		return blogcount;
+	}
+
+	public void setBlogcount(Integer blogcount) {
+		this.blogcount = blogcount;
+	}
+	
 	
 }
