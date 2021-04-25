@@ -3,6 +3,7 @@ package com.blogapp.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -66,4 +67,22 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter{ //provides a
 		.anyRequest().authenticated();
 		http.addFilterBefore(authenticationJwtTokenFilter(),UsernamePasswordAuthenticationFilter.class);
 	}
+//	@Override
+//	protected void configure(HttpSecurity http) throws Exception {
+//	http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(entryPoint)
+//	.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//	.and().authorizeRequests().antMatchers("/api/auth/**").permitAll()
+//	.antMatchers(HttpMethod.GET,"/api/comments/id/**").permitAll()
+//	.antMatchers("/api/blogs/","/api/blogs/id/**").permitAll()
+//	.antMatchers("/api/blogs/createblog","/api/blogs/name").fullyAuthenticated()
+//	.antMatchers("/v2/api-docs",
+//	"/configuration/ui",
+//	"/swagger-resources/**",
+//	"/configuration/security",
+//	"/swagger-ui.html",
+//	"/webjars/**")
+//	.permitAll()
+//	.anyRequest().authenticated();
+//	http.addFilterBefore(authenticationJwtTokenFilter(),UsernamePasswordAuthenticationFilter.class);
+//	}
 }

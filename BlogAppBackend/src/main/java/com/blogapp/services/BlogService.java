@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +14,8 @@ import com.blogapp.exception.ResourceNotFoundException;
 import com.blogapp.model.Blog;
 import com.blogapp.model.User;
 import com.blogapp.repo.BlogRepository;
+import com.blogapp.repo.CommentRepository;
+import com.blogapp.repo.LikeRepository;
 import com.blogapp.repo.UserRepository;
 @Service
 public class BlogService{
@@ -23,17 +23,21 @@ public class BlogService{
 	private BlogRepository blogRepository;
 	@Autowired
 	private UserRepository userRepository;	
+	@Autowired
+	private CustomUserDetails customUserDetails;
+	@Autowired
+	private CommentRepository commentRepository;
+	@Autowired
+	private LikeRepository likeRepository;
 	public void saveBlog(DtoBlog dtoBlog) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String currentPrincipalName = authentication.getName();
 		Blog b =new Blog();
 		b.setTitle(dtoBlog.getTitle());
 		b.setCategory(dtoBlog.getCategory());
 		b.setDescription(dtoBlog.getDescription());
 		b.setUrl(dtoBlog.getUrl());
 		b.setCreateDate(dtoBlog.getCreateDate());
-		b.setUsername(currentPrincipalName);
-		Optional<User> user=userRepository.findByUsername(currentPrincipalName);
+		b.setUsername(customUserDetails.getCurrentUser().getUsername());
+		Optional<User> user=userRepository.findByUsername(customUserDetails.getCurrentUser().getUsername());
 		user.get().setBlogcount(user.get().getBlogcount()+1);
 		blogRepository.save(b); 
 		userRepository.save(user.get());
@@ -63,16 +67,44 @@ public class BlogService{
 			return blogRepository.findAll();
 		}
 		
-		public void updateBlog(String id, Blog blog) {
+		public boolean updateBlog(String id, Blog blog) {
 	        Optional<Blog> BlogFromDb = blogRepository.findById(id);
-	        if(BlogFromDb.isPresent()) {
+	        String p=customUserDetails.getCurrentUser().getUsername();
+	        if(BlogFromDb.get().getUsername().equals(p)) {
 	        		Blog blogdb=BlogFromDb.get();
 		        	blogdb.setTitle(blog.getTitle());
 		 	        blogdb.setCategory(blog.getCategory());
 		 	        blogdb.setDescription(blog.getDescription());
 		 	        blogdb.setCreateDate(blog.getCreateDate());
 		 	        blogRepository.save(blogdb);
+		 	        return true;
+	        }
+	        else {
+	        	return false;
 	        }
 	        
 	    }
+		public Blog fetchBlog(String id) {
+			Blog b=blogRepository.findByIdAndUsername(id,customUserDetails.getCurrentUser().getUsername());
+			return b;
+		}
+		public boolean deleteBlog(String id) {
+			Optional<Blog> b = blogRepository.findById(id);
+			String p=customUserDetails.getCurrentUser().getUsername();
+			Optional<User> user= userRepository.findByUsername(customUserDetails.getCurrentUser().getUsername());
+			if(b.get().getUsername().equals(p))
+			{
+				blogRepository.deleteByIdAndUsername(id,customUserDetails.getCurrentUser().getUsername());
+				commentRepository.deleteByBlogid(id);
+				likeRepository.deleteByBlogId(id);
+				user.get().setBlogcount(user.get().getBlogcount()-1);
+				userRepository.save(user.get());
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+			
+		}
 }
