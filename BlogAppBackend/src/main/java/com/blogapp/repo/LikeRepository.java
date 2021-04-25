@@ -15,4 +15,5 @@ public interface LikeRepository extends MongoRepository<Like, Integer>  {
 	Optional<Like> findByBlogIdAndUsername(String blogId,String name);
 	 Optional<Like> findTopByBlogIdAndUsernameOrderByIdDesc(String id, String username);
 	 void deleteByUsername(String username);
+	 void deleteByBlogId(String blogId);
 }
