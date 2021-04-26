@@ -29,7 +29,7 @@ public class User {
 	private String username;
 	
 	private String password;
-	private Integer blogcount=0;
+	private Integer blogcount;
 	
 	
 	@ManyToMany(fetch = FetchType.LAZY)
@@ -40,10 +40,11 @@ public class User {
 	private Set<Role> roles = new HashSet<>();
 	public User() {}
 	
-	public User( String email, String password,String username) {
+	public User( String email, String password,String username,Integer blogcount) {
 		this.email = email;
 		this.password = password;
 		this.username=username;
+		this.blogcount=blogcount;
 	}
 	
 	public String getId() {

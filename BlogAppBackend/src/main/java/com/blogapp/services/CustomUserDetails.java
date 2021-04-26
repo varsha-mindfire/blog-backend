@@ -45,6 +45,7 @@ public class CustomUserDetails implements UserDetails{
 	private String username;
 
 	private String email;
+	private Integer blogcount;
 	
 	@Autowired
 	private UserRepository userRepository;
@@ -67,12 +68,13 @@ public class CustomUserDetails implements UserDetails{
 	private Collection<? extends GrantedAuthority> authorities;
 	public CustomUserDetails() {}
 	public CustomUserDetails(String id, String username, String email, String password,
-			Collection<? extends GrantedAuthority> authorities) {
+			Collection<? extends GrantedAuthority> authorities,Integer blogcount) {
 		this.id = id;
 		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.authorities = authorities;
+		this.blogcount=blogcount;;
 	}
 
 	public static CustomUserDetails build(User user) {
@@ -85,7 +87,8 @@ public class CustomUserDetails implements UserDetails{
 				user.getUsername(), 
 				user.getEmail(),
 				user.getPassword(), 
-				authorities);
+				authorities,
+				user.getBlogcount());
 	}
 	
 	//for registering users
@@ -107,7 +110,7 @@ public class CustomUserDetails implements UserDetails{
 		User user = new User( 
 							 signuprequest.getEmail(),
 							 encoder.encode(signuprequest.getPassword()),
-							 signuprequest.getUsername());
+							 signuprequest.getUsername(),signuprequest.getBlogcount());
 
 		Set<String> strRoles = signuprequest.getRole();
 		Set<Role> roles = new HashSet<>();
@@ -160,7 +163,7 @@ public class CustomUserDetails implements UserDetails{
 												 userDetails.getId(), 
 												 userDetails.getUsername(), 
 												 userDetails.getEmail(), 
-												 roles));
+												 roles,userDetails.getBlogcount()));
 	}
 //    public String getCurrentUser() {
 //        org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.
@@ -171,8 +174,6 @@ public class CustomUserDetails implements UserDetails{
 //    }
     @Transactional(readOnly = true)
     public User getCurrentUser() {
-//        org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.
-//                getContext().getAuthentication().getPrincipal();
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return userRepository.findByUsername(authentication.getName())
                 .orElseThrow(() -> new UsernameNotFoundException("User name not found - " + authentication.getName()));
@@ -195,7 +196,9 @@ public class CustomUserDetails implements UserDetails{
 	public String getPassword() {
 		return password;
 	}
-
+	public Integer getBlogcount() {
+		return blogcount;
+	}
 	@Override
 	public String getUsername() {
 		return username;
@@ -230,4 +233,5 @@ public class CustomUserDetails implements UserDetails{
 		CustomUserDetails user = (CustomUserDetails) o;
 		return Objects.equals(id, user.id);
 	}
+	
 }
