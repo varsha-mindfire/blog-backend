@@ -8,6 +8,7 @@ public class DtoSignupRequest {
 	 private String email;
 	 private Set<String> role;
 	 private String password;
+	 private Integer blogcount=0;
 	 
 	  public String getUsername() {
 	        return username;
@@ -40,4 +41,12 @@ public class DtoSignupRequest {
 	    public void setRole(Set<String> role) {
 	      this.role = role;
 	    }
+
+		public Integer getBlogcount() {
+			return blogcount;
+		}
+
+		public void setBlogcount(Integer blogcount) {
+			this.blogcount = blogcount;
+		}
 }
