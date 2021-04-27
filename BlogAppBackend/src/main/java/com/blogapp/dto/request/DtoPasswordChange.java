@@ -1,20 +1,32 @@
 package com.blogapp.dto.request;
 
 public class DtoPasswordChange {
-	private String password;
+	private String oldpassword;
+	private String newpassword;
 	public DtoPasswordChange() {}
 
-	public DtoPasswordChange(String password) {
-		this.password = password;
+	public DtoPasswordChange(String newpassword,String oldpassword) {
+		this.newpassword = newpassword;
+		this.oldpassword=oldpassword;
 	}
 
-	public String getPassword() {
-		return password;
+
+	public String getOldpassword() {
+		return oldpassword;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setOldpassword(String oldpassword) {
+		this.oldpassword = oldpassword;
 	}
+
+	public String getNewpassword() {
+		return newpassword;
+	}
+
+	public void setNewpassword(String newpassword) {
+		this.newpassword = newpassword;
+	}
+	
 	
 
 }
