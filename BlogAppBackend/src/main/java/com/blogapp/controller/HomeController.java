@@ -8,10 +8,14 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.blogapp.dto.request.DtoPasswordChange;
+import com.blogapp.dto.response.MessageResponse;
 import com.blogapp.model.User;
 import com.blogapp.services.CustomUserDetails;
 import com.blogapp.services.UserService;
@@ -48,4 +52,14 @@ public class HomeController {
         return ResponseEntity.status(HttpStatus.OK).body(userService.getUser(id));
 	
 }
+	 @PutMapping("/{id}")
+	 public ResponseEntity<MessageResponse> changePassword(@PathVariable("id") String id,@RequestBody DtoPasswordChange dtoPasswordChange){
+		 if(userService.changeUserPassword(id,dtoPasswordChange)==true) {
+			 return ResponseEntity.ok(new MessageResponse("Password changed sucessfully"));
+		 }
+		 else {
+			 return ResponseEntity.ok(new MessageResponse("You cannot change this password"));
+		 }
+		 
+	 }
 }

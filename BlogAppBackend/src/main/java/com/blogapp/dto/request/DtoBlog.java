@@ -1,4 +1,7 @@
  package com.blogapp.dto.request;
+
+import org.springframework.web.multipart.MultipartFile;
+
 public class DtoBlog {
 	private String id;
 	private String title;
@@ -6,14 +9,17 @@ public class DtoBlog {
 	private String description;
 	private String createDate;
 	private String url;
+	private MultipartFile file;
 	public DtoBlog() {}
-	public DtoBlog(String title, String category, String description, String createDate, String url) {
+	public DtoBlog(String title, String category, String description, String createDate,MultipartFile file) {
 		super();
 		this.title = title;
 		this.category = category;
 		this.description = description;
 		this.createDate = createDate;
-		this.setUrl(url);
+		this.file=file;
+		
+//		this.setUrl(url);
 	}
 	
 	public String getId() {
@@ -62,5 +68,11 @@ public class DtoBlog {
 	
 	public void setUrl(String url) {
 		this.url = url;
+	}
+	public MultipartFile getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile file) {
+		this.file = file;
 	}
 }
