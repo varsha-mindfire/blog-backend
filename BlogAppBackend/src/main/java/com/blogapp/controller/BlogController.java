@@ -74,12 +74,6 @@ public class BlogController {
 			 return ResponseEntity.ok(new MessageResponse("you cannot delete this blog"));
 		 }
 		 
-		
-		 
-		 
-		 
 	 }
-
-	 }
-
+}
 
