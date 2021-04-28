@@ -3,9 +3,7 @@ package com.blogapp.model;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
 import org.springframework.data.mongodb.core.mapping.Document;
-
 
 @Document(collection="blogpost")
 public class Blog {

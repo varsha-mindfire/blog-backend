@@ -37,12 +37,15 @@ public class BlogService{
 	private CommentRepository commentRepository;
 	@Autowired
 	private LikeRepository likeRepository;
+	
+	@Autowired
+	FileService fileservice;
 	public void saveBlog(DtoBlog dtoBlog) {
 		Blog b =new Blog();
 		b.setTitle(dtoBlog.getTitle());
 		b.setCategory(dtoBlog.getCategory());
 		b.setDescription(dtoBlog.getDescription());
-		b.setUrl(dtoBlog.getUrl());
+//		b.setUrl(url);
 		b.setCreateDate(dtoBlog.getCreateDate());
 		b.setUsername(customUserDetails.getCurrentUser().getUsername());
 		Optional<User> user=userRepository.findByUsername(customUserDetails.getCurrentUser().getUsername());
