@@ -2,8 +2,9 @@
 spring:
   servlet:
         multipart:
-            max-file-size: 1MB
-            max-request-size: 1MB
+            file-size-threshold: 2KB
+            max-file-size: 300MB
+            max-request-size: 315MB
   data:
     mongodb:
       uri: mongodb+srv://admin:admin%40123@cluster0.885ps.mongodb.net/blogdb?retryWrites=true&w=majority
@@ -23,12 +24,15 @@ spring:
         dialect: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
 server:
-  port: 8080
+  port: 8087
 pass:
   app:
     jwtSecret: varshaSecretKey
     jwtExpirationMs: 86400000
+file:
+    storage:
+        location: fileStorage
 ## File Storage Properties
 # All files uploaded through the REST API will be stored in this directory
-file:
-    upload-dir: /Users/callicoder/uploads
+#file:
+#    upload-dir: C:\Users\Varsha\Documents\GitHub\New folder2\blog-backend\uploads
