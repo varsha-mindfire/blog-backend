@@ -18,8 +18,6 @@ public class DtoBlog {
 		this.description = description;
 		this.createDate = createDate;
 		this.file=file;
-		
-//		this.setUrl(url);
 	}
 	
 	public String getId() {

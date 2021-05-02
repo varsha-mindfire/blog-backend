@@ -24,14 +24,14 @@ spring:
         dialect: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
 server:
-  port: 8087
+  port: 8080
 pass:
   app:
     jwtSecret: varshaSecretKey
     jwtExpirationMs: 86400000
 file:
     storage:
-        location: fileStorage
+        location: D:\fileStorage
 ## File Storage Properties
 # All files uploaded through the REST API will be stored in this directory
 #file:

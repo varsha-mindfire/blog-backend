@@ -1,19 +1,18 @@
 package com.blogapp.services;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.blogapp.constants.Message;
 import com.blogapp.dto.request.DtoBlog;
@@ -45,7 +44,7 @@ public class BlogService{
 		b.setTitle(dtoBlog.getTitle());
 		b.setCategory(dtoBlog.getCategory());
 		b.setDescription(dtoBlog.getDescription());
-//		b.setUrl(url);
+		b.setUrl(dtoBlog.getUrl());
 		b.setCreateDate(dtoBlog.getCreateDate());
 		b.setUsername(customUserDetails.getCurrentUser().getUsername());
 		Optional<User> user=userRepository.findByUsername(customUserDetails.getCurrentUser().getUsername());
@@ -99,7 +98,7 @@ public class BlogService{
 			Blog b=blogRepository.findByIdAndUsername(id,customUserDetails.getCurrentUser().getUsername());
 			return b;
 		}
-		public boolean deleteBlog(String id) {
+		public boolean deleteBlog(String id){
 			Optional<Blog> b = blogRepository.findById(id);
 			String p=customUserDetails.getCurrentUser().getUsername();
 			Optional<User> user= userRepository.findByUsername(customUserDetails.getCurrentUser().getUsername());
