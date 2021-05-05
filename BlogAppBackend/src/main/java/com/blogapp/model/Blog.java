@@ -15,6 +15,8 @@ public class Blog {
 	private String description;
 	private String createDate;
 	private String url;
+	private String path;
+	private String name;
 	private Integer likeCount=0;
 	
 	private String username;
@@ -85,5 +87,26 @@ public class Blog {
 	public void setUrl(String url) {
 		this.url = url;
 	}
+
+
+	public String getPath() {
+		return path;
+	}
+
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 
 }

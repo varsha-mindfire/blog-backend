@@ -55,8 +55,34 @@ public class FileService {
 	       
 	        return filePath;
 	    }
-
-	    public Resource downloadFile(String fileName) throws IOException {
+//
+//	    public byte[] downloadFile(String fileName) throws IOException {
+//
+//	        Path path = Paths.get(fileStorageLocation).toAbsolutePath().resolve(fileName);
+//
+//	        Resource resource;
+//	        try {
+//	            resource = new UrlResource(path.toUri());
+//	    
+//	            File f=new File(resource.getFile().getAbsolutePath());
+//	            Files.readAllBytes(f.toPath());
+//
+//	        } catch (MalformedURLException e) {
+//	           throw new RuntimeException("Issue in reading the file", e);
+//	        }
+//
+//	        if(resource.exists() && resource.isReadable()){
+//
+//	            File f=new File(resource.getFile().getAbsolutePath());
+//	            String filePath1=resource.getFile().getAbsolutePath();
+//	            byte[] data=Files.readAllBytes(f.toPath());
+////	            return resource;
+//	            return data;
+//	        }else{
+//	            throw new RuntimeException("the file doesn't exist or not readable");
+//	        }
+//	    }
+	    public Resource downloadFile(String fileName) throws IOException{
 
 	        Path path = Paths.get(fileStorageLocation).toAbsolutePath().resolve(fileName);
 
@@ -72,12 +98,12 @@ public class FileService {
 	        }
 
 	        if(resource.exists() && resource.isReadable()){
+
 	            return resource;
 	        }else{
 	            throw new RuntimeException("the file doesn't exist or not readable");
 	        }
 	    }
-
 		public Path getFileStoragePath() {
 			return fileStoragePath;
 		}

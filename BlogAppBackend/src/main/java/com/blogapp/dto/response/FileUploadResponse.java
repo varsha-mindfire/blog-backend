@@ -10,7 +10,6 @@ public class FileUploadResponse {
 	    private String url;
 	    private byte[] data;
 	    private String path;
-
 	    public FileUploadResponse(String fileName, String contentType, String url, byte[] data,String path) {
 	        this.fileName = fileName;
 	        this.contentType = contentType;

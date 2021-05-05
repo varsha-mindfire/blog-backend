@@ -44,8 +44,10 @@ public class BlogService{
 		b.setTitle(dtoBlog.getTitle());
 		b.setCategory(dtoBlog.getCategory());
 		b.setDescription(dtoBlog.getDescription());
-		b.setUrl(dtoBlog.getUrl());
+//		b.setUrl(dtoBlog.getUrl());
+		b.setName(dtoBlog.getName());
 		b.setCreateDate(dtoBlog.getCreateDate());
+		b.setPath(dtoBlog.getPath());
 		b.setUsername(customUserDetails.getCurrentUser().getUsername());
 		Optional<User> user=userRepository.findByUsername(customUserDetails.getCurrentUser().getUsername());
 		user.get().setBlogcount(user.get().getBlogcount()+1);
