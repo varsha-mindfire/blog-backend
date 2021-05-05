@@ -56,7 +56,7 @@ public class FileService {
 	        return filePath;
 	    }
 
-	    public String downloadFile(String fileName) throws IOException {
+	    public String downloadFileTesting(String fileName) throws IOException {
 
 	        Path path = Paths.get(fileStorageLocation).toAbsolutePath().resolve(fileName);
 
@@ -81,28 +81,28 @@ public class FileService {
 	            throw new RuntimeException("the file doesn't exist or not readable");
 	        }
 	    }
-//	    public Resource downloadFile(String fileName) throws IOException{
-//
-//	        Path path = Paths.get(fileStorageLocation).toAbsolutePath().resolve(fileName);
-//
-//	        Resource resource;
-//	        try {
-//	            resource = new UrlResource(path.toUri());
-//	    
-//	            File f=new File(resource.getFile().getAbsolutePath());
-//	            Files.readAllBytes(f.toPath());
-//
-//	        } catch (MalformedURLException e) {
-//	           throw new RuntimeException("Issue in reading the file", e);
-//	        }
-//
-//	        if(resource.exists() && resource.isReadable()){
-//
-//	            return resource;
-//	        }else{
-//	            throw new RuntimeException("the file doesn't exist or not readable");
-//	        }
-//	    }
+	    public Resource downloadFile(String fileName) throws IOException{
+
+	        Path path = Paths.get(fileStorageLocation).toAbsolutePath().resolve(fileName);
+
+	        Resource resource;
+	        try {
+	            resource = new UrlResource(path.toUri());
+	    
+	            File f=new File(resource.getFile().getAbsolutePath());
+	            Files.readAllBytes(f.toPath());
+
+	        } catch (MalformedURLException e) {
+	           throw new RuntimeException("Issue in reading the file", e);
+	        }
+
+	        if(resource.exists() && resource.isReadable()){
+
+	            return resource;
+	        }else{
+	            throw new RuntimeException("the file doesn't exist or not readable");
+	        }
+	    }
 		public Path getFileStoragePath() {
 			return fileStoragePath;
 		}
