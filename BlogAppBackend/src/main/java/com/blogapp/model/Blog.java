@@ -4,7 +4,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
+//Blog model for storing blog Info
 @Document(collection="blogpost")
 public class Blog {
 	@Id
