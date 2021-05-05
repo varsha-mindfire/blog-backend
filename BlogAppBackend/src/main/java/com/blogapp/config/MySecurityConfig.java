@@ -73,7 +73,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter{ //provides a
 	.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 	.and().authorizeRequests().antMatchers("/api/auth/**").permitAll()
 	.antMatchers(HttpMethod.GET,"/api/comments/id/**").permitAll()
-	.antMatchers("/api/blogs/","/api/blogs/id/**").permitAll().antMatchers("/download/{fileName}").permitAll()
+	.antMatchers("/api/blogs/","/api/blogs/id/**").permitAll().antMatchers("/download/{fileName}","/downloadtesting/{fileName}").permitAll()
 	.antMatchers("/api/blogs/createblog","/api/blogs/name").fullyAuthenticated()
 	.antMatchers("/v2/api-docs",
 	"/configuration/ui",

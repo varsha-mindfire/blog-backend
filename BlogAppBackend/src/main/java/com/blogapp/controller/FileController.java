@@ -60,33 +60,33 @@ public class FileController {
 
     }
 
-//    @GetMapping("/download/{fileName}")
-//    ResponseEntity<Resource> downLoadSingleFile(@PathVariable String fileName, HttpServletRequest request) throws IOException {
-//
-//        Resource resource = fileService.downloadFile(fileName);
-//        File f=new File(resource.getFile().getAbsolutePath());
-//        
-//        byte[] data=Files.readAllBytes(f.toPath());
-//
-//        String mimeType;
-//
-//        try {
-//            mimeType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
-//        } catch (IOException e) {
-//            mimeType = MediaType.APPLICATION_OCTET_STREAM_VALUE;
-//        }
-//        mimeType = mimeType == null ? MediaType.APPLICATION_OCTET_STREAM_VALUE : mimeType;
-//
-//        return ResponseEntity.ok()
-//                .contentType(MediaType.parseMediaType(mimeType))
-//                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;fileName="+resource.getFilename())
-//               .header(HttpHeaders.CONTENT_DISPOSITION, "inline;fileName=" + resource.getFilename())
-//                .body(resource);
-//        
-//    }
     @GetMapping("/download/{fileName}")
+    ResponseEntity<Resource> downLoadSingleFile(@PathVariable String fileName, HttpServletRequest request) throws IOException {
+
+        Resource resource = fileService.downloadFile(fileName);
+        File f=new File(resource.getFile().getAbsolutePath());
+        
+        byte[] data=Files.readAllBytes(f.toPath());
+
+        String mimeType;
+
+        try {
+            mimeType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+        } catch (IOException e) {
+            mimeType = MediaType.APPLICATION_OCTET_STREAM_VALUE;
+        }
+        mimeType = mimeType == null ? MediaType.APPLICATION_OCTET_STREAM_VALUE : mimeType;
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(mimeType))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;fileName="+resource.getFilename())
+               .header(HttpHeaders.CONTENT_DISPOSITION, "inline;fileName=" + resource.getFilename())
+                .body(resource);
+        
+    }
+    @GetMapping("/downloadtesting/{fileName}")
     FileDownloadResponse downloadFile(@PathVariable String fileName) throws IOException {
-    	String data=fileService.downloadFile(fileName);
+    	String data=fileService.downloadFileTesting(fileName);
     	FileDownloadResponse f=new FileDownloadResponse(data);
     	return f;
     	
