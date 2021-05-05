@@ -1,21 +1,21 @@
 package com.blogapp.dto.response;
 
 public class FileDownloadResponse {
-	private byte[] data;
+	private String data;
 	public FileDownloadResponse() {}
 	
 
-	public FileDownloadResponse(byte[] data) {
+	public FileDownloadResponse(String data) {
 		super();
 		this.data = data;
 	}
 
 
-	public byte[] getData() {
+	public String getData() {
 		return data;
 	}
 
-	public void setData(byte[] data) {
+	public void setData(String data) {
 		this.data = data;
 	}
 	
