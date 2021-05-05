@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,12 +39,10 @@ public class FileService {
 	    }
 
 	    public  Path storeFile(MultipartFile file) throws IOException {
-//	    	List<Blog> blog=blogrepository.findByUsername(username);
-//	    	
-	        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-	        c+=1;       
+	       	String Name = LocalDateTime.now().toString();
+	    			Name  =Name.replaceAll(":","_");
+	        String fileName = Name+StringUtils.cleanPath(file.getOriginalFilename());    
 	        Path filePath = Paths.get(fileStoragePath + "\\" + fileName);
-	        String path=fileStoragePath + "\\" + fileName;
 
 	        try {
 	            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);

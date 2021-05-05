@@ -3,7 +3,6 @@
 import org.springframework.web.multipart.MultipartFile;
 
 public class DtoBlog {
-	private String id;
 	private String title;
 	private String category;
 	private String description;
@@ -22,14 +21,6 @@ public class DtoBlog {
 		this.file=file;
 		this.path=path;
 		this.name=name;
-	}
-	
-	public String getId() {
-		return id;
-	}
-	
-	public void setId(String id) {
-		this.id = id;
 	}
 	
 	public String getTitle() {
