@@ -1,5 +1,6 @@
 package com.blogapp.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,7 +68,7 @@ public class BlogController {
 		 return blogservice.fetchBlog(id);
 		}
 	 @DeleteMapping("deleteblog/{id}")
-	 public ResponseEntity<MessageResponse> deleteBlogByIdandUsername(@PathVariable("id") String id) {
+	 public ResponseEntity<MessageResponse> deleteBlogByIdandUsername(@PathVariable("id") String id){
 		 if(blogservice.deleteBlog(id)==true) {
 			 return ResponseEntity.ok(new MessageResponse("Blog deleted sucessfully"));
 		 }else {

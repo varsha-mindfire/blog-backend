@@ -53,12 +53,12 @@ public class HomeController {
 	
 }
 	 @PutMapping("/{id}")
-	 public ResponseEntity<MessageResponse> changePassword(@PathVariable("id") String id,@RequestBody DtoPasswordChange dtoPasswordChange){
+	 public Boolean changePassword(@PathVariable("id") String id,@RequestBody DtoPasswordChange dtoPasswordChange){
 		 if(userService.changeUserPassword(id,dtoPasswordChange)==true) {
-			 return ResponseEntity.ok(new MessageResponse("Password changed sucessfully"));
+			 return true;
 		 }
 		 else {
-			 return ResponseEntity.ok(new MessageResponse("You cannot change this password"));
+			 return false;
 		 }
 		 
 	 }

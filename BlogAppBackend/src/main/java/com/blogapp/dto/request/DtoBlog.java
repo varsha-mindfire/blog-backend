@@ -10,16 +10,18 @@ public class DtoBlog {
 	private String createDate;
 	private String url;
 	private MultipartFile file;
+	private String path;
+	private String name;
 	public DtoBlog() {}
-	public DtoBlog(String title, String category, String description, String createDate,MultipartFile file) {
+	public DtoBlog(String title, String category, String description, String createDate,MultipartFile file,String path,String name) {
 		super();
 		this.title = title;
 		this.category = category;
 		this.description = description;
 		this.createDate = createDate;
 		this.file=file;
-		
-//		this.setUrl(url);
+		this.path=path;
+		this.name=name;
 	}
 	
 	public String getId() {
@@ -75,4 +77,18 @@ public class DtoBlog {
 	public void setFile(MultipartFile file) {
 		this.file = file;
 	}
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	
 }
