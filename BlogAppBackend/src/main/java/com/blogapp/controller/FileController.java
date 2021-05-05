@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.blogapp.dto.response.FileDownloadResponse;
 import com.blogapp.dto.response.FileUploadResponse;
 import com.blogapp.services.FileService;
 
@@ -37,9 +39,8 @@ public class FileController {
 
     @PostMapping("single/upload")
     FileUploadResponse singleFileUplaod(@RequestParam("file") MultipartFile file) throws IOException {
-
     	Path filePath = fileService.storeFile(file);
-        String name=file.getOriginalFilename();
+    	String name=filePath.getFileName().toString();
         String url = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/download/")
                 .path(name)
@@ -53,8 +54,6 @@ public class FileController {
             byte[] data=Files.readAllBytes(f.toPath());
 
         String contentType = file.getContentType();
-//        byte[] data = Files.readAllBytes(filePath);
-
         FileUploadResponse response = new FileUploadResponse(name, contentType, url,data,filePath1);
 
         return response;
@@ -65,6 +64,9 @@ public class FileController {
     ResponseEntity<Resource> downLoadSingleFile(@PathVariable String fileName, HttpServletRequest request) throws IOException {
 
         Resource resource = fileService.downloadFile(fileName);
+        File f=new File(resource.getFile().getAbsolutePath());
+        
+        byte[] data=Files.readAllBytes(f.toPath());
 
         String mimeType;
 
@@ -77,17 +79,17 @@ public class FileController {
 
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(mimeType))
-//                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;fileName="+resource.getFilename())
-                .header(HttpHeaders.CONTENT_DISPOSITION, "inline;fileName=" + resource.getFilename())
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;fileName="+resource.getFilename())
+               .header(HttpHeaders.CONTENT_DISPOSITION, "inline;fileName=" + resource.getFilename())
                 .body(resource);
+        
     }
 //    @GetMapping("/download/{fileName}")
 //    FileDownloadResponse downloadFile(@PathVariable String fileName) throws IOException {
 //    	byte[] data=fileService.downloadFile(fileName);
 //    	FileDownloadResponse f=new FileDownloadResponse(data);
 //    	return f;
-//    	
     	
+  
     	
     }
-
