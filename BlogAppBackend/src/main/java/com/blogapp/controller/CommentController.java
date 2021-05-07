@@ -29,17 +29,20 @@ public class CommentController {
 	@Autowired
 	CommentRepository commentRepository;
 	
+	//API for posting comments in a particular blog
 	@PostMapping("/createcomment")
 	public ResponseEntity<MessageResponse> createComment(@RequestBody DtoComment commentdto) {
 		commentservice.save(commentdto);
 		return ResponseEntity.ok(new MessageResponse("Comment added successfully!"));
 	}
 	
+	//API for fetching all comments for a particular blog.
 	@GetMapping("/id/{id}")
 	    public ResponseEntity<List<Comment>> getCommentsByBlogid(@PathVariable String id) {
 	        return ResponseEntity.status(HttpStatus.OK).body(commentservice.getAllCommentsForPost(id));
 	    }
 	
+	//API for displaying all comments of a user
 	@GetMapping("/{username}")
 	    public ResponseEntity<List<Comment>> getBlogByUsername(@PathVariable String username) {
 	        return ResponseEntity.status(HttpStatus.OK).body(commentservice.getAllCommentsForUser(username));

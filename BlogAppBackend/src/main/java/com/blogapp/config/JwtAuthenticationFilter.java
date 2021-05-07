@@ -36,6 +36,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 //		if the request has JWT, validate it, parse username from it
 //		 from username, get UserDetails to create an Authentication object
 //		 set the current UserDetails in SecurityContext using setAuthentication(authentication) method.
+		
 		@Override
 		protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 				throws ServletException, IOException {

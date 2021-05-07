@@ -2,6 +2,7 @@
 
 import org.springframework.web.multipart.MultipartFile;
 
+//Data transfer object for creating blog
 public class DtoBlog {
 	private String title;
 	private String category;
@@ -11,7 +12,9 @@ public class DtoBlog {
 	private MultipartFile file;
 	private String path;
 	private String name;
+	
 	public DtoBlog() {}
+	
 	public DtoBlog(String title, String category, String description, String createDate,MultipartFile file,String path,String name) {
 		super();
 		this.title = title;

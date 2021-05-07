@@ -1,5 +1,6 @@
 package com.blogapp.dto.request;
 
+//Data transfer object for login request
 public class DtoLoginRequest {
 	
 	String username;

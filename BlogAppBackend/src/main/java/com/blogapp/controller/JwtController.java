@@ -31,12 +31,14 @@ public class JwtController {
 	
 	@Autowired
 	CustomUserDetails customeruserdetails;
-
+	
+	//API for sign in
 	@PostMapping(value="/signin")
 	public ResponseEntity<?> signin( @RequestBody DtoLoginRequest jwtRequest) throws Exception{
 		return  customeruserdetails.authenticateUser(jwtRequest);
 	}
-
+	
+	//API for registering new user
 		@PostMapping("/signup")
 		 public ResponseEntity<?> signup(@RequestBody DtoSignupRequest dtoSignupRequest) {
 			return customeruserdetails.registerUser(dtoSignupRequest);

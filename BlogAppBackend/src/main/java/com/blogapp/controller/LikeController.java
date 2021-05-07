@@ -21,6 +21,7 @@ public class LikeController {
 	@Autowired
 	LikeService likeService;
 	
+	//API for liking a post
 	@PostMapping("/likeblog")
 	public ResponseEntity<MessageResponse> createLike(@RequestBody DtoLike likedto) {
 		Integer p=likeService.save(likedto);
@@ -32,6 +33,8 @@ public class LikeController {
 		}
 			
 		}
+	
+	//API for checking whether a user has already liked a post or not
 	@GetMapping("/likeblog/{blogId}")
 	public Boolean fetchLikeDetails(@PathVariable String blogId) {
 		if(likeService.fetchDetail(blogId)==true) {

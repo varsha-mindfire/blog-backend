@@ -2,6 +2,7 @@ package com.blogapp.dto.response;
 
 import java.util.List;
 
+//Jwt Message response
 public class JwtResponse {
 	private String token;
 	private String type = "Bearer";
@@ -71,6 +72,4 @@ public class JwtResponse {
 	public void setBlogcount(Integer blogcount) {
 		this.blogcount = blogcount;
 	}
-	
-	
 }

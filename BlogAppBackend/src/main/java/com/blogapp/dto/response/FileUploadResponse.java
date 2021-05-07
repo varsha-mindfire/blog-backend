@@ -1,22 +1,21 @@
 package com.blogapp.dto.response;
 
-import java.nio.file.Path;
-
+//Response message for uploading file
 public class FileUploadResponse {
-	 private String fileName;
-
-	    private String contentType;
-
-	    private String url;
-	    private byte[] data;
-	    private String path;
-	    public FileUploadResponse(String fileName, String contentType, String url, byte[] data,String path) {
+	
+	private String fileName;
+	private String contentType;
+	private String url;
+	private byte[] data;
+	private String path;
+	
+	public FileUploadResponse(String fileName, String contentType, String url, byte[] data,String path) {
 	        this.fileName = fileName;
 	        this.contentType = contentType;
 	        this.url = url;
 	        this.data=data;
 	        this.path=path;
-	    }
+	        }
 
 	    public String getFileName() {
 	        return fileName;
@@ -57,6 +56,4 @@ public class FileUploadResponse {
 		public void setPath(String path) {
 			this.path = path;
 		}
-		
-
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.blogapp.model.Like;
 
+//Like repository interface
 @Repository
 public interface LikeRepository extends MongoRepository<Like, Integer>  {
 	Integer findByLike(Integer Like);

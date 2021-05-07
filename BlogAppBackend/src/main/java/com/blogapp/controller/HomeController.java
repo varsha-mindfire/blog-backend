@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.blogapp.dto.request.DtoPasswordChange;
-import com.blogapp.dto.response.MessageResponse;
 import com.blogapp.model.User;
 import com.blogapp.services.CustomUserDetails;
 import com.blogapp.services.UserService;
@@ -47,11 +45,14 @@ public class HomeController {
 	public String blogpart() {
 		return "blog Board.";
 	}
+	
+	//API for displaying user info
 	@RequestMapping(value = "id/{id}", method = RequestMethod.GET)
     public ResponseEntity<User> getBlogByUserId(@PathVariable String id) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.getUser(id));
+	}
 	
-}
+	//API for changing password
 	 @PutMapping("/{id}")
 	 public Boolean changePassword(@PathVariable("id") String id,@RequestBody DtoPasswordChange dtoPasswordChange){
 		 if(userService.changeUserPassword(id,dtoPasswordChange)==true) {

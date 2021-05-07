@@ -1,6 +1,5 @@
 package com.blogapp.services;
 
-
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -165,13 +164,7 @@ public class CustomUserDetails implements UserDetails{
 												 userDetails.getEmail(), 
 												 roles,userDetails.getBlogcount()));
 	}
-//    public String getCurrentUser() {
-//        org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.
-//                getContext().getAuthentication().getPrincipal();
-//        Optional<User> user =userRepository.findByUsername(principal.getUsername());
-//       return user.get().getUsername()
-//    		   .orElseThrow(() -> new UsernameNotFoundException("User name not found - " + principal.getUsername()));
-//    }
+	//fetching username of current logged-in user
     @Transactional(readOnly = true)
     public User getCurrentUser() {
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

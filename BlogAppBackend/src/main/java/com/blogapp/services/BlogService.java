@@ -1,19 +1,10 @@
 package com.blogapp.services;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.blogapp.constants.Message;
 import com.blogapp.dto.request.DtoBlog;
 import com.blogapp.exception.ResourceNotFoundException;
@@ -39,6 +30,7 @@ public class BlogService{
 	
 	@Autowired
 	FileService fileservice;
+	//saving blog informaton from request
 	public void saveBlog(DtoBlog dtoBlog) {
 		Blog b =new Blog();
 		b.setTitle(dtoBlog.getTitle());
@@ -54,6 +46,7 @@ public class BlogService{
 		blogRepository.save(b); 
 		userRepository.save(user.get());
 	}
+	//retrieving blog by blogid
 	
 	   @Transactional(readOnly = true)
 	    public Blog getBlog(String id) {
@@ -63,6 +56,7 @@ public class BlogService{
 	        return blog.get();
 	    }
 	   
+	   //fetching blogs by username
 	   @Transactional(readOnly = true)
 	    public List<Blog> getBlogByName(String name) {
 		   List<Blog> emptylst = Collections.emptyList();
@@ -74,11 +68,13 @@ public class BlogService{
 		      }
 	    }
 	   
+	   //fetching all blogs
 		@Transactional(readOnly=true)
 		public List<Blog> getAll() {
 			return blogRepository.findAll();
 		}
 		
+		//updating blogs
 		public boolean updateBlog(String id, Blog blog) {
 	        Optional<Blog> BlogFromDb = blogRepository.findById(id);
 	        String p=customUserDetails.getCurrentUser().getUsername();
@@ -94,12 +90,14 @@ public class BlogService{
 	        else {
 	        	return false;
 	        }
-	        
 	    }
+		
 		public Blog fetchBlog(String id) {
 			Blog b=blogRepository.findByIdAndUsername(id,customUserDetails.getCurrentUser().getUsername());
 			return b;
 		}
+		
+		//deleting blog by blogId
 		public boolean deleteBlog(String id){
 			Optional<Blog> b = blogRepository.findById(id);
 			String p=customUserDetails.getCurrentUser().getUsername();
