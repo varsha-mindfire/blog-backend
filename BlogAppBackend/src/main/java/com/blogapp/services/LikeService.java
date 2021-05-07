@@ -41,7 +41,7 @@ public class LikeService {
 			}
 		else if(likerequest.getLike()==1 && voteByBlogAndUser.isPresent()) {
 			blog1.setLikeCount(blog1.getLikeCount()-1);
-			likeRepository.deleteByUsername(customUserDetails.getCurrentUser().getUsername());
+			likeRepository.deleteByUsernameAndBlogId(customUserDetails.getCurrentUser().getUsername(),blog1.getId());
 			blogRepository.save(blog1);
 			C-=1;
 		}
