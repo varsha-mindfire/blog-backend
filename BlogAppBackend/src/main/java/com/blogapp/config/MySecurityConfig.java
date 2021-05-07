@@ -50,24 +50,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter{ //provides a
 	{
 		return super.authenticationManager();
 	}
-	
-//	@Override
-//	protected void configure(HttpSecurity http) throws Exception {
-//		http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(entryPoint)
-//		.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//		.and().authorizeRequests().antMatchers("/api/auth/**").permitAll()
-//		.antMatchers("/api/blogs/**").fullyAuthenticated().antMatchers("/api/blogs/").fullyAuthenticated()
-//		.antMatchers("/v2/api-docs",
-//				"/configuration/ui",
-//				"/swagger-resources/**",
-//				"/configuration/security",
-//				"/swagger-ui.html",
-//				"/webjars/**")
-//		.permitAll()
-//		.anyRequest().authenticated();
-//		http.addFilterBefore(authenticationJwtTokenFilter(),UsernamePasswordAuthenticationFilter.class);
-//	}
-	
+
 	//Defining proper security for accessing resources
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
