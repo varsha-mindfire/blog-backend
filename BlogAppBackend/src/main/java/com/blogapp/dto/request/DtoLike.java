@@ -27,11 +27,9 @@ public class DtoLike {
 	public Integer getLike() {
 		return like;
 	}
-	
 	public void setLike(Integer like) {
 		this.like = like;
 	}
-	
 	public String getBlogId() {
 		return blogId;
 	}
