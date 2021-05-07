@@ -2,12 +2,13 @@ package com.blogapp.exception;
 
 import java.util.Date;
 
+// Response message for resource not found exception
 public class ErrorDetails {
 	
 	private Date timestamp;
 	private String message;
 	private String details;
-
+	
 	public ErrorDetails(Date timestamp, String message, String details) {
 		super();
 		this.timestamp = timestamp;

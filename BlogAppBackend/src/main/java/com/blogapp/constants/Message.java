@@ -1,5 +1,5 @@
 package com.blogapp.constants;
-
+// defining constants
 public interface Message {
 
 	public final String USERNAME_EXISTS="Error: Username is already taken!";

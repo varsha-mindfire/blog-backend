@@ -21,6 +21,7 @@ public class UserService {
 	@Autowired
 	PasswordEncoder encoder;
 	
+	//Fetching user info using user ID
 	@Transactional(readOnly = true)
 	public User getUser(String id) 
 	{
@@ -28,6 +29,7 @@ public class UserService {
 		return user.get();
 	}
 	
+	//change password for logged in user.
 	public Boolean changeUserPassword(String id,DtoPasswordChange dtoPasswordChange) {
 		Optional<User> user=userRepository.findById(id);
 		if(user.get().getUsername() == customUserDetails.getCurrentUser().getUsername() && encoder.matches(dtoPasswordChange.getOldpassword(),user.get().getPassword())==true) {
@@ -40,6 +42,4 @@ public class UserService {
 		}
 		
 	}
-	
-
 }

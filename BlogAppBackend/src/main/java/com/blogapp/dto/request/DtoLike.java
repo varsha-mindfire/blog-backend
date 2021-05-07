@@ -1,5 +1,6 @@
 package com.blogapp.dto.request;
 
+//Data transfer object for liking blogs
 public class DtoLike {
 	private String id;
 	private Integer like;
@@ -46,8 +47,6 @@ public class DtoLike {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
-	
 }
 	
 	

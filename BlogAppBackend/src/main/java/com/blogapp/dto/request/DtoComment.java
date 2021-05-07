@@ -2,14 +2,13 @@ package com.blogapp.dto.request;
 
 import java.time.Instant;
 
+//Data transfer object for posting comments
 public class DtoComment {
 	private String id;
 	private String blogId;
 	private String comment;
 	private Instant createdDate;
 	private String username;
-	
-	
 	
 	public DtoComment(String blogId, String comment, Instant createdDate, String username) {
 		this.blogId = blogId;
@@ -57,6 +56,4 @@ public class DtoComment {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
-	
 }

@@ -1,8 +1,8 @@
 package com.blogapp.model;
 
 import java.time.Instant;
-
 import org.springframework.data.mongodb.core.mapping.Document;
+
 //Comment model for storing user comments
 @Document(collection="comments")
 public class Comment {

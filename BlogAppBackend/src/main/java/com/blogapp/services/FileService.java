@@ -9,8 +9,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.util.Base64;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -18,15 +16,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.blogapp.repo.BlogRepository;
 @Service
 public class FileService {
 	 private Path fileStoragePath;
 	 private String fileStorageLocation;
-	 private Integer c=0;
-	 @Autowired
-	 private BlogRepository blogrepository;
-
+	 //creating directory in file storage location
 	    public  FileService(@Value("${file.storage.location:temp}") String fileStorageLocation) {
 
 	        this.fileStorageLocation = fileStorageLocation;
@@ -38,7 +32,8 @@ public class FileService {
 	            throw new RuntimeException("Issue in creating file directory");
 	        }
 	    }
-
+	    
+	    //storing file in the location
 	    public  Path storeFile(MultipartFile file) throws IOException {
 	       	String Name = LocalDateTime.now().toString();
 	    			Name  =Name.replaceAll(":","_");
@@ -55,7 +50,8 @@ public class FileService {
 	       
 	        return filePath;
 	    }
-
+	    
+	    // fetching file from storage and converting it into byte array.
 	    public String downloadFileTesting(String fileName) throws IOException {
 
 	        Path path = Paths.get(fileStorageLocation).toAbsolutePath().resolve(fileName);
@@ -81,6 +77,7 @@ public class FileService {
 	            throw new RuntimeException("the file doesn't exist or not readable");
 	        }
 	    }
+	    
 	    public Resource downloadFile(String fileName) throws IOException{
 
 	        Path path = Paths.get(fileStorageLocation).toAbsolutePath().resolve(fileName);
@@ -106,7 +103,6 @@ public class FileService {
 		public Path getFileStoragePath() {
 			return fileStoragePath;
 		}
-
 		public void setFileStoragePath(Path fileStoragePath) {
 			this.fileStoragePath = fileStoragePath;
 		}

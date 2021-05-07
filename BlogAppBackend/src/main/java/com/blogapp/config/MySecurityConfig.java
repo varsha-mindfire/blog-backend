@@ -67,6 +67,8 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter{ //provides a
 //		.anyRequest().authenticated();
 //		http.addFilterBefore(authenticationJwtTokenFilter(),UsernamePasswordAuthenticationFilter.class);
 //	}
+	
+	//Defining proper security for accessing resources
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 	http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(entryPoint)

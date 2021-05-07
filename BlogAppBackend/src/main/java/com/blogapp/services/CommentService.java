@@ -8,7 +8,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.blogapp.dto.request.DtoComment;
 import com.blogapp.exception.ResourceNotFoundException;
 import com.blogapp.model.Blog;
@@ -16,6 +15,7 @@ import com.blogapp.model.Comment;
 import com.blogapp.repo.BlogRepository;
 import com.blogapp.repo.CommentRepository;
 import com.blogapp.repo.UserRepository;
+
 @Service
 public class CommentService {
 	
@@ -30,7 +30,7 @@ public class CommentService {
 	
 	@Autowired
 	CustomUserDetails customUserDetails;
-	
+	// Posting comment for Blogs
 	public void save(DtoComment comrequest) {
 	Optional<Blog> blog=blogRepository.findById(comrequest.getBlogId());
 	    Instant instant = Instant.now();
@@ -48,18 +48,19 @@ public class CommentService {
 		
 	}
 	
+	//fetching all comments for post
 	   @Transactional(readOnly = true)
 	    public List<Comment> getAllCommentsForPost(String id) {
 	        List<Comment> comment= commentRepository.findByBlogid(id);
 	        return comment;
 	    }
 	   
+	   //fetching all comments of a user
 	   @Transactional(readOnly = true)
 	    public List<Comment> getAllCommentsForUser(String name) {
 		   List<Comment> emptylst = Collections.emptyList();
 		   List<Comment> comment =commentRepository.findByUsername(name);
 		      if (comment.isEmpty()) {
-
 		    	  return emptylst;
 		      }		    		
 		      return comment;  
