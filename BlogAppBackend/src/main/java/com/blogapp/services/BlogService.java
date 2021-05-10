@@ -71,9 +71,8 @@ public class BlogService{
 	   //fetching all blogs
 		@Transactional(readOnly=true)
 		public List<Blog> getAll() {
-			return blogRepository.findAll();
+			return blogRepository.findAllByOrderByCreateDateAsc();
 		}
-		
 		//updating blogs
 		public boolean updateBlog(String id, Blog blog) {
 	        Optional<Blog> BlogFromDb = blogRepository.findById(id);
