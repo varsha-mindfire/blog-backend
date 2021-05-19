@@ -21,26 +21,32 @@ public class FileService {
 	 private Path fileStoragePath;
 	 private String fileStorageLocation;
 	 //creating directory in file storage location
-	    public  FileService(@Value("${file.storage.location:temp}") String fileStorageLocation) {
+	    public  FileService(@Value("${file.storage.location:temp}") String fileStorageLocation) 
+	    {
 
 	        this.fileStorageLocation = fileStorageLocation;
 	        fileStoragePath = Paths.get(fileStorageLocation).toAbsolutePath().normalize();
 
-	        try {
+	        try 
+	        {
 	            Files.createDirectories(fileStoragePath);
-	        } catch (IOException e) {
+	        } catch (IOException e)
+	        {
 	            throw new RuntimeException("Issue in creating file directory");
 	        }
 	    }
 	    
 	    //storing file in the location
-	    public  Path storeFile(MultipartFile file) throws IOException {
+	    public  Path storeFile(MultipartFile file) throws IOException
+	    {
 	       	String Name = LocalDateTime.now().toString();
 	    			Name  =Name.replaceAll(":","_");
+	    			
 	        String fileName = Name+StringUtils.cleanPath(file.getOriginalFilename());    
 	        Path filePath = Paths.get(fileStoragePath + "\\" + fileName);
 
-	        try {
+	        try 
+	        {
 	            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 	            
 	            
@@ -52,7 +58,8 @@ public class FileService {
 	    }
 	    
 	    // fetching file from storage and converting it into byte array.
-	    public String downloadFile(String fileName) throws IOException {
+	    public String downloadFile(String fileName) throws IOException 
+	    {
 
 	        Path path = Paths.get(fileStorageLocation).toAbsolutePath().resolve(fileName);
 
@@ -63,7 +70,8 @@ public class FileService {
 	            File f=new File(resource.getFile().getAbsolutePath());
 	            Files.readAllBytes(f.toPath());
 
-	        } catch (MalformedURLException e) {
+	        } catch (MalformedURLException e)
+	        {
 	           throw new RuntimeException("Issue in reading the file", e);
 	        }
 
@@ -73,7 +81,8 @@ public class FileService {
 	            byte[] data=Files.readAllBytes(f.toPath());
 	            String encodedString = Base64.getEncoder().encodeToString(data);
 	            return encodedString;
-	        }else{
+	        }else
+	        {
 	            throw new RuntimeException("the file doesn't exist or not readable");
 	        }
 	    }

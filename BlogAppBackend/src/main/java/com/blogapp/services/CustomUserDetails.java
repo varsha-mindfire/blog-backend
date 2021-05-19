@@ -124,12 +124,12 @@ public class CustomUserDetails implements UserDetails{
 				switch (role) {
 				case "admin":
 					Role adminRole = roleRepository.findByName(Erole.ROLE_ADMIN)
-							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+							.orElseThrow(() -> new RoleNotFoundException(Message.ROLE_NOT_FOUND));
 					roles.add(adminRole);
 					break;
 				case "user":
 					Role userRole = roleRepository.findByName(Erole.ROLE_USER)
-					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+					.orElseThrow(() -> new RoleNotFoundException(Message.ROLE_NOT_FOUND));
 					roles.add(userRole);
 					break;
 				default:

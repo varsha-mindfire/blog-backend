@@ -30,14 +30,16 @@ public class UserService {
 	}
 	
 	//change password for logged in user.
-	public Boolean changeUserPassword(String id,DtoPasswordChange dtoPasswordChange) {
+	public Boolean changeUserPassword(String id,DtoPasswordChange dtoPasswordChange)
+	{
 		Optional<User> user=userRepository.findById(id);
 		if(user.get().getUsername() == customUserDetails.getCurrentUser().getUsername() && encoder.matches(dtoPasswordChange.getOldpassword(),user.get().getPassword())==true) {
 			user.get().setPassword(encoder.encode(dtoPasswordChange.getNewpassword()));
 			userRepository.save(user.get());
 			return true;
 		}
-		else {
+		else
+		{
 			return false;
 		}
 		

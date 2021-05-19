@@ -31,7 +31,8 @@ public class BlogService{
 	@Autowired
 	FileService fileservice;
 	//saving blog informaton from request
-	public void saveBlog(DtoBlog dtoBlog) {
+	public void saveBlog(DtoBlog dtoBlog)
+	{
 		Blog b =new Blog();
 		b.setTitle(dtoBlog.getTitle());
 		b.setCategory(dtoBlog.getCategory());
@@ -48,8 +49,8 @@ public class BlogService{
 	}
 	//retrieving blog by blogid
 	
-	   @Transactional(readOnly = true)
-	    public Blog getBlog(String id) {
+	    public Blog getBlog(String id) 
+	   {
 		   Optional<Blog> blog=blogRepository.findById(id);
 	        if (!blog.isPresent())
 	    		throw new ResourceNotFoundException(Message.BLOG_NOT_FOUND);
@@ -57,27 +58,32 @@ public class BlogService{
 	    }
 	   
 	   //fetching blogs by username
-	   @Transactional(readOnly = true)
-	    public List<Blog> getBlogByName(String name) {
+	   public List<Blog> getBlogByName(String name)
+	   {
 		   List<Blog> emptylst = Collections.emptyList();
 		   List<Blog> blog =blogRepository.findByUsername(name);
-		      if (blog.isEmpty())
-		    	  return emptylst;
-		      else {
+		   if (blog.isEmpty()) 
+		   {
+			   return emptylst;
+		   }
+		   else
+		   {
 		        return blog;
-		      }
+		   }
 	    }
 	   
 	   //fetching all blogs
 		@Transactional(readOnly=true)
-		public List<Blog> getAll() {
-			return blogRepository.findAllByOrderByCreateDateAsc();
+		public List<Blog> getAll() 
+		{
+			return blogRepository.findAllByOrderByCreateDateDesc();
 		}
 		//updating blogs
 		public boolean updateBlog(String id, Blog blog) {
 	        Optional<Blog> BlogFromDb = blogRepository.findById(id);
 	        String p=customUserDetails.getCurrentUser().getUsername();
-	        if(BlogFromDb.get().getUsername().equals(p)) {
+	        if(BlogFromDb.get().getUsername().equals(p))
+	        {
 	        		Blog blogdb=BlogFromDb.get();
 		        	blogdb.setTitle(blog.getTitle());
 		 	        blogdb.setCategory(blog.getCategory());
@@ -86,18 +92,21 @@ public class BlogService{
 		 	        blogRepository.save(blogdb);
 		 	        return true;
 	        }
-	        else {
+	        else 
+	        {
 	        	return false;
 	        }
 	    }
 		
-		public Blog fetchBlog(String id) {
+		public Blog fetchBlog(String id) 
+		{
 			Blog b=blogRepository.findByIdAndUsername(id,customUserDetails.getCurrentUser().getUsername());
 			return b;
 		}
 		
 		//deleting blog by blogId
-		public boolean deleteBlog(String id){
+		public boolean deleteBlog(String id)
+		{
 			Optional<Blog> b = blogRepository.findById(id);
 			String p=customUserDetails.getCurrentUser().getUsername();
 			Optional<User> user= userRepository.findByUsername(customUserDetails.getCurrentUser().getUsername());

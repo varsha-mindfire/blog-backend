@@ -15,7 +15,5 @@ public interface BlogRepository extends MongoRepository<Blog, String> {
 	List<Blog> findByUsername(String username);
 	Blog findByIdAndUsername(String id,String username);
 	void deleteByIdAndUsername(String id,String username);
-	List<Blog> findAllByOrderByCreateDateAsc();
-
-	
+	List<Blog> findAllByOrderByCreateDateDesc();	
 }
