@@ -11,10 +11,11 @@ import com.blogapp.model.Like;
 //Like repository interface
 @Repository
 public interface LikeRepository extends MongoRepository<Like, Integer>  {
+	
 	Integer findByLike(Integer Like);
 	List<String> findUsernameByBlogId(String id);
 	Optional<Like> findByBlogIdAndUsername(String blogId,String name);
-	 Optional<Like> findTopByBlogIdAndUsernameOrderByIdDesc(String id, String username);
-	 void deleteByUsernameAndBlogId(String username,String blogid);
-	 void deleteByBlogId(String blogId);
+	Optional<Like> findTopByBlogIdAndUsernameOrderByIdDesc(String id, String username);
+	void deleteByUsernameAndBlogId(String username,String blogid);
+	void deleteByBlogId(String blogId);
 }

@@ -22,13 +22,15 @@ public class LikeService {
 	CustomUserDetails customUserDetails;
 	
 	// function for saving likes by user for a particular blog
-	public Integer save(DtoLike likerequest) {
+	public Integer save(DtoLike likerequest)
+	{
 		Optional<Blog> blog=blogRepository.findById(likerequest.getBlogId());
 		Blog blog1=blog.get();
 		Like like=new Like();
 		Integer C=0;
 		Optional<Like> voteByBlogAndUser = likeRepository.findTopByBlogIdAndUsernameOrderByIdDesc(blog1.getId(), customUserDetails.getCurrentUser().getUsername());
-		if(likerequest.getLike()==1 && !voteByBlogAndUser.isPresent()){
+		if(likerequest.getLike()==1 && !voteByBlogAndUser.isPresent())
+		{
 			Instant instant = Instant.now();
 			blog1.setLikeCount(blog1.getLikeCount()+1);
 			like.setLike(likerequest.getLike());
@@ -38,8 +40,9 @@ public class LikeService {
 			likeRepository.save(like);
 			blogRepository.save(blog1);
 			C+=1;
-			}
-		else if(likerequest.getLike()==1 && voteByBlogAndUser.isPresent()) {
+		}
+		else if(likerequest.getLike()==1 && voteByBlogAndUser.isPresent())
+		{
 			blog1.setLikeCount(blog1.getLikeCount()-1);
 			likeRepository.deleteByUsernameAndBlogId(customUserDetails.getCurrentUser().getUsername(),blog1.getId());
 			blogRepository.save(blog1);
@@ -49,12 +52,15 @@ public class LikeService {
 	}
 	
 	// function to check whether a user has already liked a blog or not.
-	public Boolean fetchDetail(String blogId) {
+	public Boolean fetchDetail(String blogId) 
+	{
 		Optional<Like> det=likeRepository.findByBlogIdAndUsername(blogId,customUserDetails.getCurrentUser().getUsername());
-		if(det.isPresent()) {
+		if(det.isPresent())
+		{
 			return true;
 		}
-		else {
+		else
+		{
 			return false;
 		}
 	}

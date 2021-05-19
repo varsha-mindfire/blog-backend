@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.blogapp.constants.Message;
 import com.blogapp.dto.request.DtoBlog;
 import com.blogapp.dto.response.MessageResponse;
 import com.blogapp.model.Blog;
@@ -33,7 +35,7 @@ public class BlogController {
 	@RequestMapping(value="createblog",method=RequestMethod.POST)
 	public ResponseEntity<MessageResponse> createComment(@RequestBody DtoBlog blogdto) {
 		blogservice.saveBlog(blogdto);
-		return ResponseEntity.ok(new MessageResponse("Blog added successfully!"));
+		return ResponseEntity.ok(new MessageResponse(Message.BLOG_POSTED));
 	}
 	
 	//API for displaying all blogs
@@ -44,7 +46,6 @@ public class BlogController {
 	
 	//API for displaying a particular blog
 	@RequestMapping(value = "id/{id}", method = RequestMethod.GET)
-
 	    public ResponseEntity<Blog> getBlogByBlogid(@PathVariable String id) {
 	        return ResponseEntity.status(HttpStatus.OK).body(blogservice.getBlog(id));
 	}
@@ -59,10 +60,10 @@ public class BlogController {
 	 @PutMapping({"id/{id}"})
 	    public ResponseEntity<MessageResponse> updateTodo(@PathVariable("id") String id, @RequestBody Blog blog) {
 		 if( blogservice.updateBlog(id, blog)==true) {
-	    	   return ResponseEntity.ok(new MessageResponse("Blog updated successfully!"));
+	    	   return ResponseEntity.ok(new MessageResponse(Message.BLOG_UPDATED));
 	       }
 	       else {
-	    	   return ResponseEntity.ok(new MessageResponse("You cannot update the Blog"));
+	    	   return ResponseEntity.ok(new MessageResponse(Message.CANNOT_UPDATE_BLOG));
 	       }
 	    }
 	 
@@ -76,11 +77,10 @@ public class BlogController {
 	 @DeleteMapping("deleteblog/{id}")
 	 public ResponseEntity<MessageResponse> deleteBlogByIdandUsername(@PathVariable("id") String id){
 		 if(blogservice.deleteBlog(id)==true) {
-			 return ResponseEntity.ok(new MessageResponse("Blog deleted sucessfully"));
+			 return ResponseEntity.ok(new MessageResponse(Message.BLOG_DELETED));
 		 }else {
-			 return ResponseEntity.ok(new MessageResponse("you cannot delete this blog"));
-		 }
-		 
+			 return ResponseEntity.ok(new MessageResponse(Message.CANNOT_DELETE_BLOG));
+		 } 
 	 }
 
 }

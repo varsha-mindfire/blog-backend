@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.blogapp.constants.Message;
 import com.blogapp.dto.request.DtoComment;
 import com.blogapp.dto.response.MessageResponse;
 import com.blogapp.model.Comment;
@@ -33,7 +34,7 @@ public class CommentController {
 	@PostMapping("/createcomment")
 	public ResponseEntity<MessageResponse> createComment(@RequestBody DtoComment commentdto) {
 		commentservice.save(commentdto);
-		return ResponseEntity.ok(new MessageResponse("Comment added successfully!"));
+		return ResponseEntity.ok(new MessageResponse(Message.COMMENT_ADDED));
 	}
 	
 	//API for fetching all comments for a particular blog.

@@ -32,26 +32,26 @@ public class FileController {
     //API for uploading a file
     @PostMapping("single/upload")
     FileUploadResponse singleFileUplaod(@RequestParam("file") MultipartFile file) throws IOException {
+    	
     	Path filePath = fileService.storeFile(file);
     	String name=filePath.getFileName().toString();
         String url = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/download/")
                 .path(name)
                 .toUriString();
-          Resource resource;
-         
-            resource = new UrlResource(filePath.toUri());
+        Resource resource;
+        resource = new UrlResource(filePath.toUri());
 
-            File f=new File(resource.getFile().getAbsolutePath());
-            String filePath1=resource.getFile().getAbsolutePath();
-            byte[] data=Files.readAllBytes(f.toPath());
-
+        File f=new File(resource.getFile().getAbsolutePath());
+        String filePath1=resource.getFile().getAbsolutePath();
+        byte[] data=Files.readAllBytes(f.toPath());
         String contentType = file.getContentType();
         FileUploadResponse response = new FileUploadResponse(name, contentType, url,data,filePath1);
 
         return response;
 
     } 
+    
     //API for downloading  a file
     @GetMapping("/download/{fileName}")
     FileDownloadResponse downloadFile(@PathVariable String fileName) throws IOException {
