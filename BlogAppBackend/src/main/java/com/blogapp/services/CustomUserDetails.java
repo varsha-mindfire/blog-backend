@@ -164,6 +164,7 @@ public class CustomUserDetails implements UserDetails{
 												 userDetails.getEmail(), 
 												 roles,userDetails.getBlogcount()));
 	}
+	
 	//fetching username of current logged-in user
     @Transactional(readOnly = true)
     public User getCurrentUser() {

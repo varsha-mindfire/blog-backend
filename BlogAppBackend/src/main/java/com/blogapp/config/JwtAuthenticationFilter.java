@@ -34,7 +34,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 //		//getting JWT from the Authorization header (by removing Bearer prefix)
 //		// the request has JWT, validate it, parse username from it
-//		 //from username, get UserDetails to create an Authentication object
+//		//from username, get UserDetails to create an Authentication object
 //		// set the current UserDetails in SecurityContext using setAuthentication(authentication) method.
 		
 		@Override
