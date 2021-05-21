@@ -1,11 +1,17 @@
 package com.blogapp.dto.response;
 
+/**
+ * Message response
+ * 
+ * @author Varsha
+ *
+ */
 public class MessageResponse {
-	
+
 	private String message;
 
 	public MessageResponse(String message) {
-	    this.message = message;
+		this.message = message;
 	}
 
 	public String getMessage() {

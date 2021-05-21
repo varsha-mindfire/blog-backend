@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.blogapp.constants.Message;
+import com.blogapp.constants.Emessage;
 import com.blogapp.dto.request.DtoComment;
-import com.blogapp.dto.response.MessageResponse;
+import com.blogapp.dto.response.EmessageResponse;
 import com.blogapp.model.Comment;
 import com.blogapp.repo.CommentRepository;
 import com.blogapp.services.CommentService;
@@ -25,21 +25,21 @@ import com.blogapp.services.CommentService;
 @CrossOrigin("http://localhost:4200")
 public class CommentController {
 	@Autowired
-	CommentService commentservice;
-	
+	CommentService commentService;
+
 	@Autowired
 	CommentRepository commentRepository;
-	
-	//API for posting comments in a particular blog
+
+	// API for posting comments in a particular blog
 	@PostMapping("/createcomment")
-	public ResponseEntity<MessageResponse> createComment(@RequestBody DtoComment commentdto) {
-		commentservice.save(commentdto);
-		return ResponseEntity.ok(new MessageResponse(Message.COMMENT_ADDED));
+	public ResponseEntity<EmessageResponse> createComment(@RequestBody DtoComment commentdto) {
+		commentService.save(commentdto);
+		return ResponseEntity.ok(new EmessageResponse(Emessage.COMMENT_ADDED));
 	}
-	
-	//API for fetching all comments for a particular blog.
+
+	// API for fetching all comments for a particular blog.
 	@GetMapping("/id/{id}")
-	    public ResponseEntity<List<Comment>> getCommentsByBlogid(@PathVariable String id) {
-	        return ResponseEntity.status(HttpStatus.OK).body(commentservice.getAllCommentsForPost(id));
-	    }
+	public ResponseEntity<List<Comment>> getCommentsByBlogid(@PathVariable String id) {
+		return ResponseEntity.status(HttpStatus.OK).body(commentService.getAllCommentsForPost(id));
 	}
+}

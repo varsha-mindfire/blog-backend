@@ -17,57 +17,54 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.blogapp.services.CustomUserDetailService;
 
+/**
+ * Defining proper security for accessing resources Defining authentication
+ * Manager
+ * 
+ * @author Varsha
+ */
 @Configuration
-@EnableWebSecurity //main annotation which enables web security module
-@EnableGlobalMethodSecurity(
-		prePostEnabled = true)
-public class MySecurityConfig extends WebSecurityConfigurerAdapter{ //provides all default security configuration
-	
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+public class MySecurityConfig extends WebSecurityConfigurerAdapter { // provides all default security configuration
+
 	@Autowired
 	private CustomUserDetailService customUserDetailService;
 
 	@Autowired
 	private JwtAuthenticationEntryPoint entryPoint;
-	
+
 	@Bean
 	public JwtAuthenticationFilter authenticationJwtTokenFilter() {
 		return new JwtAuthenticationFilter();
 	}
-	
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(customUserDetailService);
 	}
-	
+
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
+
 	@Bean
 	@Override
-	public AuthenticationManager authenticationManagerBean() throws Exception
-	{
+	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManager();
 	}
 
-	//Defining proper security for accessing resources
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-	http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(entryPoint)
-	.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-	.and().authorizeRequests().antMatchers("/api/auth/**").permitAll()
-	.antMatchers(HttpMethod.GET,"/api/comments/id/**").permitAll()
-	.antMatchers("/api/blogs/","/api/blogs/id/**").permitAll().antMatchers("/download/{fileName}","/downloadtesting/{fileName}").permitAll()
-	.antMatchers("/api/blogs/createblog","/api/blogs/name").fullyAuthenticated()
-	.antMatchers("/v2/api-docs",
-	"/configuration/ui",
-	"/swagger-resources/**",
-	"/configuration/security",
-	"/swagger-ui.html",
-	"/webjars/**")
-	.permitAll()
-	.anyRequest().authenticated();
-	http.addFilterBefore(authenticationJwtTokenFilter(),UsernamePasswordAuthenticationFilter.class);
+		http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(entryPoint).and()
+				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
+				.antMatchers("/api/auth/**").permitAll().antMatchers(HttpMethod.GET, "/api/comments/id/**").permitAll()
+				.antMatchers("/api/blogs/", "/api/blogs/id/**").permitAll().antMatchers("/download/{fileName}")
+				.permitAll().antMatchers("/api/blogs/createblog", "/api/blogs/name").fullyAuthenticated()
+				.antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/security",
+						"/swagger-ui.html", "/webjars/**")
+				.permitAll().anyRequest().authenticated();
+		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
 }

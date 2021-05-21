@@ -1,59 +1,64 @@
 package com.blogapp.dto.response;
 
-//Response message for uploading file
+/**
+ * Response message for uploading file
+ * 
+ * @author Varsha
+ *
+ */
 public class FileUploadResponse {
-	
+
 	private String fileName;
 	private String contentType;
 	private String url;
 	private byte[] data;
 	private String path;
-	
-	public FileUploadResponse(String fileName, String contentType, String url, byte[] data,String path) {
-	        this.fileName = fileName;
-	        this.contentType = contentType;
-	        this.url = url;
-	        this.data=data;
-	        this.path=path;
-	        }
 
-	    public String getFileName() {
-	        return fileName;
-	    }
+	public FileUploadResponse(String fileName, String contentType, String url, byte[] data, String path) {
+		this.fileName = fileName;
+		this.contentType = contentType;
+		this.url = url;
+		this.data = data;
+		this.path = path;
+	}
 
-	    public void setFileName(String fileName) {
-	        this.fileName = fileName;
-	    }
+	public String getFileName() {
+		return fileName;
+	}
 
-	    public String getContentType() {
-	        return contentType;
-	    }
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
 
-	    public void setContentType(String contentType) {
-	        this.contentType = contentType;
-	    }
+	public String getContentType() {
+		return contentType;
+	}
 
-	    public String getUrl() {
-	        return url;
-	    }
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
+	}
 
-	    public void setUrl(String url) {
-	        this.url = url;
-	    }
+	public String getUrl() {
+		return url;
+	}
 
-		public byte[] getData() {
-			return data;
-		}
+	public void setUrl(String url) {
+		this.url = url;
+	}
 
-		public void setData(byte[] data) {
-			this.data = data;
-		}
+	public byte[] getData() {
+		return data;
+	}
 
-		public String getPath() {
-			return path;
-		}
+	public void setData(byte[] data) {
+		this.data = data;
+	}
 
-		public void setPath(String path) {
-			this.path = path;
-		}
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
 }

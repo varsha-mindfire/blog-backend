@@ -17,6 +17,12 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 
+/**
+ * This class contains method for generating and validating jwt
+ * 
+ * @author Varsha
+ *
+ */
 @Component
 public class JwtUtil {
 	private static final Logger logger = LoggerFactory.getLogger(JwtUtil.class);
@@ -26,26 +32,38 @@ public class JwtUtil {
 
 	@Value("${pass.app.jwtExpirationMs}")
 	private int jwtExpirationMs;
-	
-	//generate a JWT from username, date, expiration, secret
+
+	/**
+	 * generate a JWT from username, date, expiration, secret
+	 * 
+	 * @param authentication
+	 * @return
+	 */
 	public String generateJwtToken(Authentication authentication) {
 
-		CustomUserDetails  userPrincipal = (CustomUserDetails ) authentication.getPrincipal();
+		CustomUserDetails userPrincipal = (CustomUserDetails) authentication.getPrincipal();
 
-		return Jwts.builder()
-				.setSubject((userPrincipal.getUsername()))
-				.setIssuedAt(new Date())
+		return Jwts.builder().setSubject((userPrincipal.getUsername())).setIssuedAt(new Date())
 				.setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
-				.signWith(SignatureAlgorithm.HS512, jwtSecret)
-				.compact();
+				.signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
 	}
-	
-	//getting username from JWT
+
+	/**
+	 * getting username from JWT
+	 * 
+	 * @param token
+	 * @return
+	 */
 	public String getUserNameFromJwtToken(String token) {
 		return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
 	}
-	
-	//validating a JWT
+
+	/**
+	 * This method validates a JWT
+	 * 
+	 * @param authToken
+	 * @return boolean
+	 */
 	public boolean validateJwtToken(String authToken) {
 		try {
 			Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);

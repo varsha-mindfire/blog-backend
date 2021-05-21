@@ -11,28 +11,26 @@ import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-//implementing swagger
+
+/**
+ * implementing swagger **
+ * 
+ * @author varsha
+ * 
+ */
 
 @Configuration
 @EnableSwagger2
 public class SwagerConfig {
 	@Bean
-    public Docket redditCloneApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.any())
-                .build()
-                .apiInfo(getApiInfo());
-    }
-	
-    private ApiInfo getApiInfo() {
-        return new ApiInfoBuilder()
-                .title("Blog Application API")
-                .version("1.0")
-                .description("API for Blog Application")
-                .contact(new Contact("mindfiresolutions", "http://www.mindfiresolutions.com", "xyz@email.com"))
-                .license("Apache License Version 2.0")
-                .build();
-    }
+	public Docket Api() {
+		return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.any())
+				.paths(PathSelectors.any()).build().apiInfo(getApiInfo());
+	}
+
+	private ApiInfo getApiInfo() {
+		return new ApiInfoBuilder().title("Blog Application API").version("1.0").description("API for Blog Application")
+				.contact(new Contact("mindfiresolutions", "http://www.mindfiresolutions.com", "xyz@email.com"))
+				.license("Apache License Version 2.0").build();
+	}
 }

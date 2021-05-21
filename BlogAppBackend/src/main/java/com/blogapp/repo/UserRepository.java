@@ -7,12 +7,21 @@ import org.springframework.stereotype.Repository;
 
 import com.blogapp.model.User;
 
-//User repository interface
+/**
+ * User repository interface extends JpaRepository
+ * 
+ * @author Varsha
+ *
+ */
 @Repository
 public interface UserRepository extends JpaRepository<User, String> {
 	Optional<User> findByUsername(String username);
+
 	public Optional<User> findById(String Id);
+
 	Boolean existsByUsername(String username);
+
 	Boolean existsByEmail(String email);
+
 	boolean existsById(String Id);
 }

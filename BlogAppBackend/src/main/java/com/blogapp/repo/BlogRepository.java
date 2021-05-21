@@ -7,13 +7,23 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.blogapp.model.Blog;
 
-//Blog repository interface
+/**
+ * Blog repository interface
+ * 
+ * @author Varsha
+ *
+ */
 public interface BlogRepository extends MongoRepository<Blog, String> {
 
 	List<Blog> findByTitle(String title);
+
 	Optional<Blog> findById(String id);
+
 	List<Blog> findByUsername(String username);
-	Blog findByIdAndUsername(String id,String username);
-	void deleteByIdAndUsername(String id,String username);
-	List<Blog> findAllByOrderByCreateDateDesc();	
+
+	Blog findByIdAndUsername(String id, String username);
+
+	void deleteByIdAndUsername(String id, String username);
+
+	List<Blog> findAllByOrderByCreateDateDesc();
 }

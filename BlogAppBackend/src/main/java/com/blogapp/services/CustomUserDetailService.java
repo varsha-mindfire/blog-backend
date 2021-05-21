@@ -9,19 +9,25 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.blogapp.model.User;
 import com.blogapp.repo.UserRepository;
+
+/**
+ * load details about the user during authentication.
+ * 
+ * @author Varsha
+ *
+ */
+
 @Service
-public class CustomUserDetailService implements UserDetailsService{
-	
+public class CustomUserDetailService implements UserDetailsService {
+
 	@Autowired
 	private UserRepository userRepository;
-	
-	//load details about the user during authentication.
-		@Override
-		@Transactional
-		public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException 
-		{
-			User user = userRepository.findByUsername(username)
-					.orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
-			return  CustomUserDetails.build(user);
-		}
+
+	@Override
+	@Transactional
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		User user = userRepository.findByUsername(username)
+				.orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
+		return CustomUserDetails.build(user);
+	}
 }
