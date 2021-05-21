@@ -23,30 +23,25 @@ import com.blogapp.services.UserService;
 public class HomeController {
 	@Autowired
 	CustomUserDetails customUserDetails;
-	
+
 	@Autowired
 	UserService userService;
-	
+
 	@GetMapping("/admin")
 	@PreAuthorize("hasRole('ADMIN')")
 	public String adminAccess() {
 		return "Admin Board.";
 	}
-	
-	//API for displaying user info
+
+	// API for displaying user info
 	@RequestMapping(value = "id/{id}", method = RequestMethod.GET)
-    public ResponseEntity<User> getBlogByUserId(@PathVariable String id) {
-        return ResponseEntity.status(HttpStatus.OK).body(userService.getUser(id));
+	public ResponseEntity<User> getBlogByUserId(@PathVariable String id) {
+		return ResponseEntity.status(HttpStatus.OK).body(userService.getUser(id));
 	}
-	
-	//API for changing password
-	 @PutMapping("/{id}")
-	 public Boolean changePassword(@PathVariable("id") String id,@RequestBody DtoPasswordChange dtoPasswordChange){
-		 if(userService.changeUserPassword(id,dtoPasswordChange)==true) {
-			 return true;
-		 }
-		 else {
-			 return false;
-		 } 
-	 }
+
+	// API for changing password
+	@PutMapping("/{id}")
+	public Boolean changePassword(@PathVariable("id") String id, @RequestBody DtoPasswordChange dtoPasswordChange) {
+		return userService.changeUserPassword(id, dtoPasswordChange);
+	}
 }

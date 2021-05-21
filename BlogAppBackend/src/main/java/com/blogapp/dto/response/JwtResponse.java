@@ -2,7 +2,12 @@ package com.blogapp.dto.response;
 
 import java.util.List;
 
-//Jwt Message response
+/**
+ * Jwt Message response
+ * 
+ * @author Varsha
+ *
+ */
 public class JwtResponse {
 	private String token;
 	private String type = "Bearer";
@@ -12,13 +17,14 @@ public class JwtResponse {
 	private List<String> roles;
 	private Integer blogcount;
 
-	public JwtResponse(String accessToken, String id, String username, String email, List<String> roles,Integer blogcount) {
+	public JwtResponse(String accessToken, String id, String username, String email, List<String> roles,
+			Integer blogcount) {
 		this.token = accessToken;
 		this.id = id;
 		this.username = username;
 		this.email = email;
 		this.roles = roles;
-		this.blogcount=blogcount;
+		this.blogcount = blogcount;
 	}
 
 	public String getAccessToken() {

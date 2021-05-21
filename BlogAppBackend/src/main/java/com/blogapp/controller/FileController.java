@@ -25,38 +25,35 @@ public class FileController {
 	@Autowired
 	private FileService fileService;
 
-    public FileController(FileService fileService) {
-        this.fileService = fileService;
-    }
-    
-    //API for uploading a file
-    @PostMapping("single/upload")
-    FileUploadResponse singleFileUplaod(@RequestParam("file") MultipartFile file) throws IOException {
-    	
-    	Path filePath = fileService.storeFile(file);
-    	String name=filePath.getFileName().toString();
-        String url = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/download/")
-                .path(name)
-                .toUriString();
-        Resource resource;
-        resource = new UrlResource(filePath.toUri());
+	public FileController(FileService fileService) {
+		this.fileService = fileService;
+	}
 
-        File f=new File(resource.getFile().getAbsolutePath());
-        String filePath1=resource.getFile().getAbsolutePath();
-        byte[] data=Files.readAllBytes(f.toPath());
-        String contentType = file.getContentType();
-        FileUploadResponse response = new FileUploadResponse(name, contentType, url,data,filePath1);
+	// API for uploading a file
+	@PostMapping("single/upload")
+	FileUploadResponse singleFileUplaod(@RequestParam("file") MultipartFile file) throws IOException {
 
-        return response;
+		Path filePath = fileService.storeFile(file);
+		String name = filePath.getFileName().toString();
+		String url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/download/").path(name).toUriString();
+		Resource resource;
+		resource = new UrlResource(filePath.toUri());
 
-    } 
-    
-    //API for downloading  a file
-    @GetMapping("/download/{fileName}")
-    FileDownloadResponse downloadFile(@PathVariable String fileName) throws IOException {
-    	String data=fileService.downloadFile(fileName);
-    	FileDownloadResponse f=new FileDownloadResponse(data);
-    	return f;
-    }
+		File mfile = new File(resource.getFile().getAbsolutePath());
+		String filePath1 = resource.getFile().getAbsolutePath();
+		byte[] data = Files.readAllBytes(mfile.toPath());
+		String contentType = file.getContentType();
+		FileUploadResponse response = new FileUploadResponse(name, contentType, url, data, filePath1);
+
+		return response;
+
+	}
+
+	// API for downloading a file
+	@GetMapping("/download/{fileName}")
+	FileDownloadResponse downloadFile(@PathVariable String fileName) throws IOException {
+		String data = fileService.downloadFile(fileName);
+		FileDownloadResponse fileDownloadResponse = new FileDownloadResponse(data);
+		return fileDownloadResponse;
+	}
 }

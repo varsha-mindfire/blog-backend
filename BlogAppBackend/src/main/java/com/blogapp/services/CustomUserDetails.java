@@ -19,14 +19,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.blogapp.constants.Emessage;
 import com.blogapp.constants.Message;
 import com.blogapp.dto.request.DtoLoginRequest;
 import com.blogapp.dto.request.DtoSignupRequest;
+import com.blogapp.dto.response.EmessageResponse;
 import com.blogapp.dto.response.JwtResponse;
-import com.blogapp.dto.response.MessageResponse;
 import com.blogapp.exception.RoleNotFoundException;
 import com.blogapp.helper.JwtUtil;
 import com.blogapp.model.Erole;
@@ -35,8 +35,15 @@ import com.blogapp.model.User;
 import com.blogapp.repo.RoleRepository;
 import com.blogapp.repo.UserRepository;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+/**
+ * Contains method for accepting user request
+ * 
+ * @author Varsha
+ *
+ */
 @Service
-public class CustomUserDetails implements UserDetails{
+public class CustomUserDetails implements UserDetails {
 	private static final long serialVersionUID = 1L;
 
 	private String id;
@@ -45,19 +52,19 @@ public class CustomUserDetails implements UserDetails{
 
 	private String email;
 	private Integer blogcount;
-	
+
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private RoleRepository roleRepository;
-	
+
 	@Autowired
 	PasswordEncoder encoder;
-	
+
 	@Autowired
 	private JwtUtil jwtUtil;
-	
+
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
@@ -65,51 +72,46 @@ public class CustomUserDetails implements UserDetails{
 	private String password;
 
 	private Collection<? extends GrantedAuthority> authorities;
-	public CustomUserDetails() {}
+
+	public CustomUserDetails() {
+	}
+
 	public CustomUserDetails(String id, String username, String email, String password,
-			Collection<? extends GrantedAuthority> authorities,Integer blogcount) {
+			Collection<? extends GrantedAuthority> authorities, Integer blogcount) {
 		this.id = id;
 		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.authorities = authorities;
-		this.blogcount=blogcount;;
+		this.blogcount = blogcount;
+		;
 	}
 
 	public static CustomUserDetails build(User user) {
 		List<GrantedAuthority> authorities = user.getRoles().stream()
-				.map(role -> new SimpleGrantedAuthority(role.getName().name()))
-				.collect(Collectors.toList());
+				.map(role -> new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList());
 
-		return new CustomUserDetails(
-				user.getId(), 
-				user.getUsername(), 
-				user.getEmail(),
-				user.getPassword(), 
-				authorities,
+		return new CustomUserDetails(user.getId(), user.getUsername(), user.getEmail(), user.getPassword(), authorities,
 				user.getBlogcount());
 	}
-	
-	//for registering users
+
+	/**
+	 * This method is used for registering users creating new user's account
+	 * 
+	 * @param signuprequest
+	 * @exception RoleNotFound
+	 */
 	public ResponseEntity<?> registerUser(@RequestBody DtoSignupRequest signuprequest) {
 		if (userRepository.existsByUsername(signuprequest.getUsername())) {
-			return ResponseEntity
-					.badRequest()
-					.body(new MessageResponse(Message.USERNAME_EXISTS));
+			return ResponseEntity.badRequest().body(new EmessageResponse(Emessage.USERNAME_EXISTS));
 		}
 
 		if (userRepository.existsByEmail(signuprequest.getEmail())) {
-			return ResponseEntity
-					.badRequest()
-					.body(new MessageResponse(Message.EMAIL_EXISTS));
+			return ResponseEntity.badRequest().body(new EmessageResponse(Emessage.EMAIL_EXISTS));
 		}
-		
 
-		// Create new user's account
-		User user = new User( 
-							 signuprequest.getEmail(),
-							 encoder.encode(signuprequest.getPassword()),
-							 signuprequest.getUsername(),signuprequest.getBlogcount());
+		User user = new User(signuprequest.getEmail(), encoder.encode(signuprequest.getPassword()),
+				signuprequest.getUsername(), signuprequest.getBlogcount());
 
 		Set<String> strRoles = signuprequest.getRole();
 		Set<Role> roles = new HashSet<>();
@@ -117,8 +119,8 @@ public class CustomUserDetails implements UserDetails{
 			Role userRole = roleRepository.findByName(Erole.ROLE_USER)
 					.orElseThrow(() -> new RoleNotFoundException(Message.ROLE_NOT_FOUND));
 			roles.add(userRole);
-		} else 
-			
+		} else
+
 		{
 			strRoles.forEach(role -> {
 				switch (role) {
@@ -129,7 +131,7 @@ public class CustomUserDetails implements UserDetails{
 					break;
 				case "user":
 					Role userRole = roleRepository.findByName(Erole.ROLE_USER)
-					.orElseThrow(() -> new RoleNotFoundException(Message.ROLE_NOT_FOUND));
+							.orElseThrow(() -> new RoleNotFoundException(Message.ROLE_NOT_FOUND));
 					roles.add(userRole);
 					break;
 				default:
@@ -137,47 +139,49 @@ public class CustomUserDetails implements UserDetails{
 				}
 			});
 		}
-			
+
 		user.setRoles(roles);
 		userRepository.save(user);
-		return ResponseEntity.ok(new MessageResponse(Message.USER_REGISTERED));
+		return ResponseEntity.ok(new EmessageResponse(Emessage.USER_REGISTERED));
 	}
-	
-	//for authenticating users
-	public ResponseEntity<?> authenticateUser( @RequestBody DtoLoginRequest jwtRequest) throws Exception{
+
+	/**
+	 * This method is used for authenticating users to store authentication object
+	 * inside the security context
+	 * 
+	 * @param jwtRequest
+	 */
+	public ResponseEntity<?> authenticateUser(@RequestBody DtoLoginRequest jwtRequest) throws Exception {
 
 		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken( jwtRequest.getUsername(),  jwtRequest.getPassword()));
-		
-		//to store authentication object inside the security context
+				new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(), jwtRequest.getPassword()));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		String jwt = jwtUtil.generateJwtToken(authentication);
-		
-		CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();		
-		List<String> roles = userDetails.getAuthorities().stream()
-				.map(item -> item.getAuthority())
+
+		CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+		List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
 				.collect(Collectors.toList());
 
-		return ResponseEntity.ok(new JwtResponse(jwt, 
-												 userDetails.getId(), 
-												 userDetails.getUsername(), 
-												 userDetails.getEmail(), 
-												 roles,userDetails.getBlogcount()));
+		return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(),
+				userDetails.getEmail(), roles, userDetails.getBlogcount()));
 	}
-	
-	//fetching username of current logged-in user
-    @Transactional(readOnly = true)
-    public User getCurrentUser() {
-    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return userRepository.findByUsername(authentication.getName())
-                .orElseThrow(() -> new UsernameNotFoundException("User name not found - " + authentication.getName()));
-    }
+
+	/**
+	 * Method for fetching userdetails of current logged-in user
+	 * 
+	 * @exception UsernameNotFound
+	 */
+
+	public User getCurrentUser() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		return userRepository.findByUsername(authentication.getName())
+				.orElseThrow(() -> new UsernameNotFoundException("User name not found - " + authentication.getName()));
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return authorities;
 	}
-	
 
 	public String getId() {
 		return id;
@@ -186,13 +190,16 @@ public class CustomUserDetails implements UserDetails{
 	public String getEmail() {
 		return email;
 	}
+
 	@Override
 	public String getPassword() {
 		return password;
 	}
+
 	public Integer getBlogcount() {
 		return blogcount;
 	}
+
 	@Override
 	public String getUsername() {
 		return username;
@@ -227,5 +234,5 @@ public class CustomUserDetails implements UserDetails{
 		CustomUserDetails user = (CustomUserDetails) o;
 		return Objects.equals(id, user.id);
 	}
-	
+
 }

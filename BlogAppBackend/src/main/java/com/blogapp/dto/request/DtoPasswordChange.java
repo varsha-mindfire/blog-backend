@@ -1,16 +1,23 @@
 package com.blogapp.dto.request;
 
-//Data transfer object for password change
+/**
+ * Data transfer object for password change
+ * 
+ * @author Varsha
+ *
+ */
 public class DtoPasswordChange {
 	private String oldpassword;
 	private String newpassword;
-	
-	public DtoPasswordChange() {}
 
-	public DtoPasswordChange(String newpassword,String oldpassword) {
-		this.newpassword = newpassword;
-		this.oldpassword=oldpassword;
+	public DtoPasswordChange() {
 	}
+
+	public DtoPasswordChange(String newpassword, String oldpassword) {
+		this.newpassword = newpassword;
+		this.oldpassword = oldpassword;
+	}
+
 	public String getOldpassword() {
 		return oldpassword;
 	}
@@ -26,7 +33,5 @@ public class DtoPasswordChange {
 	public void setNewpassword(String newpassword) {
 		this.newpassword = newpassword;
 	}
-	
-	
 
 }

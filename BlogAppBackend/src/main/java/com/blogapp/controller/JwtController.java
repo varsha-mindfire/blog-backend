@@ -19,28 +19,28 @@ import com.blogapp.services.CustomUserDetails;
 @RestController
 @RequestMapping("/api/auth")
 public class JwtController {
-	
+
 	@Autowired
 	UserRepository userRepository;
-	
+
 	@Autowired
 	PasswordEncoder encoder;
-	
+
 	@Autowired
 	RoleRepository roleRepository;
-	
+
 	@Autowired
-	CustomUserDetails customeruserdetails;
-	
-	//API for sign in
-	@PostMapping(value="/signin")
-	public ResponseEntity<?> signin( @RequestBody DtoLoginRequest jwtRequest) throws Exception{
-		return  customeruserdetails.authenticateUser(jwtRequest);
+	CustomUserDetails customerUserdetails;
+
+	// API for sign in
+	@PostMapping(value = "/signin")
+	public ResponseEntity<?> signin(@RequestBody DtoLoginRequest jwtRequest) throws Exception {
+		return customerUserdetails.authenticateUser(jwtRequest);
 	}
-	
-	//API for registering new user
-		@PostMapping("/signup")
-		 public ResponseEntity<?> signup(@RequestBody DtoSignupRequest dtoSignupRequest) {
-			return customeruserdetails.registerUser(dtoSignupRequest);
-	    }
+
+	// API for registering new user
+	@PostMapping("/signup")
+	public ResponseEntity<?> signup(@RequestBody DtoSignupRequest dtoSignupRequest) {
+		return customerUserdetails.registerUser(dtoSignupRequest);
+	}
 }
