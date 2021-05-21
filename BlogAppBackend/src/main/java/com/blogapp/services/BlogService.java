@@ -118,8 +118,9 @@ public class BlogService {
 			blogdb.setCreateDate(blog.getCreateDate());
 			blogRepository.save(blogdb);
 			return true;
+		} else {
+			return false;
 		}
-		return false;
 	}
 
 	public Blog fetchBlog(String id) {
@@ -144,8 +145,9 @@ public class BlogService {
 			user.get().setBlogcount(user.get().getBlogcount() - 1);
 			userRepository.save(user.get());
 			return true;
+		} else {
+			return false;
 		}
-		return false;
 
 	}
 }

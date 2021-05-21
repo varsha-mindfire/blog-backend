@@ -50,9 +50,6 @@ public class LikeController {
 	 */
 	@GetMapping("/likeblog/{blogId}")
 	public Boolean fetchLikeDetails(@PathVariable String blogId) {
-		if (likeService.fetchDetail(blogId) == true) {
-			return true;
-		}
-		return false;
+		return likeService.fetchDetail(blogId);
 	}
 }

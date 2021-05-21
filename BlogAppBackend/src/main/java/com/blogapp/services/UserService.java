@@ -51,8 +51,8 @@ public class UserService {
 			user.get().setPassword(encoder.encode(dtoPasswordChange.getNewpassword()));
 			userRepository.save(user.get());
 			return true;
+		} else {
+			return false;
 		}
-		return false;
-
 	}
 }
