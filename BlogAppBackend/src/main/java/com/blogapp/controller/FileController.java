@@ -19,6 +19,12 @@ import com.blogapp.dto.response.FileDownloadResponse;
 import com.blogapp.dto.response.FileUploadResponse;
 import com.blogapp.services.FileService;
 
+/**
+ * 
+ * @author Varsha
+ * @since 15/03/2021
+ *
+ */
 @RestController
 @CrossOrigin("http://localhost:4200")
 public class FileController {
@@ -29,19 +35,29 @@ public class FileController {
 		this.fileService = fileService;
 	}
 
-	// API for uploading a file
+	/**
+	 * This method specifies to upload a single file
+	 * 
+	 * @author Varsha
+	 * @params file It contains multipart file object
+	 * 
+	 * @return response The response contains filename, filetype, the link of file
+	 *         storage, base64 data
+	 */
 	@PostMapping("single/upload")
 	FileUploadResponse singleFileUplaod(@RequestParam("file") MultipartFile file) throws IOException {
-
-		Path filePath = fileService.storeFile(file);
-		String name = filePath.getFileName().toString();
-		String url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/download/").path(name).toUriString();
 		Resource resource;
+		String name, url;
+		byte[] data;
+		Path filePath = fileService.storeFile(file);
+		name = filePath.getFileName().toString();
+		url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/download/").path(name).toUriString();
+
 		resource = new UrlResource(filePath.toUri());
 
 		File mfile = new File(resource.getFile().getAbsolutePath());
 		String filePath1 = resource.getFile().getAbsolutePath();
-		byte[] data = Files.readAllBytes(mfile.toPath());
+		data = Files.readAllBytes(mfile.toPath());
 		String contentType = file.getContentType();
 		FileUploadResponse response = new FileUploadResponse(name, contentType, url, data, filePath1);
 
@@ -49,7 +65,13 @@ public class FileController {
 
 	}
 
-	// API for downloading a file
+	/**
+	 * This method return file in base64 string
+	 * 
+	 * @param fileName
+	 * @return Response
+	 * @throws IOException
+	 */
 	@GetMapping("/download/{fileName}")
 	FileDownloadResponse downloadFile(@PathVariable String fileName) throws IOException {
 		String data = fileService.downloadFile(fileName);

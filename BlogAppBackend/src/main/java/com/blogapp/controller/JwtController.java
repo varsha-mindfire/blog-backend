@@ -14,7 +14,12 @@ import com.blogapp.dto.request.DtoSignupRequest;
 import com.blogapp.repo.RoleRepository;
 import com.blogapp.repo.UserRepository;
 import com.blogapp.services.CustomUserDetails;
-
+/**
+ * 
+ * @author Varsha
+ * @since 15/03/2021
+ *
+ */
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/auth")
@@ -32,13 +37,22 @@ public class JwtController {
 	@Autowired
 	CustomUserDetails customerUserdetails;
 
-	// API for sign in
+	/**
+	 * Method for sign in
+	 * @param jwtRequest
+	 * @return Response entity
+	 * @throws Exception
+	 */
 	@PostMapping(value = "/signin")
 	public ResponseEntity<?> signin(@RequestBody DtoLoginRequest jwtRequest) throws Exception {
 		return customerUserdetails.authenticateUser(jwtRequest);
 	}
 
-	// API for registering new user
+	/**
+	 * Method responsible for user registeration
+	 * @param dtoSignupRequest
+	 * @return Response entity
+	 */
 	@PostMapping("/signup")
 	public ResponseEntity<?> signup(@RequestBody DtoSignupRequest dtoSignupRequest) {
 		return customerUserdetails.registerUser(dtoSignupRequest);

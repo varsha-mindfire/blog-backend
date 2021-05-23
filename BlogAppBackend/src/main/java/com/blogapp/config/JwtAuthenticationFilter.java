@@ -23,12 +23,10 @@ import com.blogapp.helper.JwtUtil;
 import com.blogapp.services.CustomUserDetailService;
 
 /**
- * getting JWT from the Authorization header (by removing Bearer prefix) the
- * request has JWT, validate it, parse username from it from username, get
- * UserDetails to create an Authentication object set the current UserDetails in
- * SecurityContext using setAuthentication(authentication) method.
+ * This class is responsible for getting JWT ,validating it .
  * 
  * @author Varsha
+ * @since 15/03/2021
  */
 
 @Component
@@ -41,6 +39,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 	private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
 
+	/**
+	 * This method is responsible for creating an Authentication object and setting
+	 * the current UserDetails in SecurityContext using
+	 * setAuthentication(authentication) method.
+	 */
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
@@ -62,6 +65,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		filterChain.doFilter(request, response);
 	}
 
+	/**
+	 * This method is responsible for getting JWT from the Authorization header (by
+	 * removing Bearer prefix)
+	 * 
+	 * @param request
+	 * @return jwt token
+	 */
 	private String parseJwt(HttpServletRequest request) {
 		String headerAuth = request.getHeader("Authorization");
 

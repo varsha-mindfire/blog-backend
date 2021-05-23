@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 /**
  * Comment model for storing user comments
  * @author Varsha
+ * @since 15/03/2021
  *
  */
 @Document(collection = "comments")

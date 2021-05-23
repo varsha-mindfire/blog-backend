@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
  * This class have methods for uploading and fetching multipart file
  * 
  * @author Varsha
+ * @since 15/03/2021
  *
  */
 @Service
@@ -70,22 +71,24 @@ public class FileService {
 	}
 
 	/**
-	 * This file fetches file from storage and converts it into byte array.
+	 * This method fetches file from storage and converts it base64 string
 	 * 
 	 * @param fileName
 	 * @return String
 	 * @throws RunTimeException
 	 */
 	public String downloadFile(String fileName) throws IOException {
+		byte[] data;
+		String encodedString;
+		Resource resource;
 
 		Path path = Paths.get(fileStorageLocation).toAbsolutePath().resolve(fileName);
 
-		Resource resource;
 		try {
 			resource = new UrlResource(path.toUri());
 
-			File f = new File(resource.getFile().getAbsolutePath());
-			Files.readAllBytes(f.toPath());
+			File file = new File(resource.getFile().getAbsolutePath());
+			Files.readAllBytes(file.toPath());
 
 		} catch (MalformedURLException e) {
 			throw new RuntimeException("Issue in reading the file", e);
@@ -93,9 +96,9 @@ public class FileService {
 
 		if (resource.exists() && resource.isReadable()) {
 
-			File f = new File(resource.getFile().getAbsolutePath());
-			byte[] data = Files.readAllBytes(f.toPath());
-			String encodedString = Base64.getEncoder().encodeToString(data);
+			File filep = new File(resource.getFile().getAbsolutePath());
+			data = Files.readAllBytes(filep.toPath());
+			encodedString = Base64.getEncoder().encodeToString(data);
 			return encodedString;
 		} else {
 			throw new RuntimeException("the file doesn't exist or not readable");

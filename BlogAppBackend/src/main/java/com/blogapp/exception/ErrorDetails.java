@@ -6,6 +6,7 @@ import java.util.Date;
  * Response message for resource not found exception
  * 
  * @author Varsha
+ * @since 15/03/2021
  *
  */
 public class ErrorDetails {

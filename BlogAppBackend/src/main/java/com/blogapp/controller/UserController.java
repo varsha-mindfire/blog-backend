@@ -16,11 +16,16 @@ import com.blogapp.dto.request.DtoPasswordChange;
 import com.blogapp.model.User;
 import com.blogapp.services.CustomUserDetails;
 import com.blogapp.services.UserService;
-
+/**
+ * 
+ * @author Varsha
+ * @since 15/03/2021
+ *
+ */
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/auth")
-public class HomeController {
+public class UserController {
 	@Autowired
 	CustomUserDetails customUserDetails;
 
@@ -33,15 +38,26 @@ public class HomeController {
 		return "Admin Board.";
 	}
 
-	// API for displaying user info
+	/**
+	 * Method responsible for displaying user info
+	 * 
+	 * @param id
+	 * @return userdetails username,role,blogcount.
+	 */
 	@RequestMapping(value = "id/{id}", method = RequestMethod.GET)
-	public ResponseEntity<User> getBlogByUserId(@PathVariable String id) {
-		return ResponseEntity.status(HttpStatus.OK).body(userService.getUser(id));
+	public ResponseEntity<User> getByUserId(@PathVariable String id) {
+		return ResponseEntity.status(HttpStatus.OK).body(userService.getAuthUser(id));
 	}
 
-	// API for changing password
+	/**
+	 * Method responsible for changing password
+	 * 
+	 * @param id, dtoPasswordChange
+	 * @return Boolean
+	 */
 	@PutMapping("/{id}")
-	public Boolean changePassword(@PathVariable("id") String id, @RequestBody DtoPasswordChange dtoPasswordChange) {
-		return userService.changeUserPassword(id, dtoPasswordChange);
+	public boolean changePassword(@PathVariable("id") String id, @RequestBody DtoPasswordChange dtoPasswordChange) {
+		userService.changeUserPassword(id, dtoPasswordChange);
+		return true;
 	}
 }

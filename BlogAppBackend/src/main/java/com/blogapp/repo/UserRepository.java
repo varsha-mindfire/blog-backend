@@ -11,6 +11,7 @@ import com.blogapp.model.User;
  * User repository interface extends JpaRepository
  * 
  * @author Varsha
+ * @since 15/03/2021
  *
  */
 @Repository

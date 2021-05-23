@@ -4,7 +4,10 @@ import java.time.Instant;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.blogapp.constants.Message;
 import com.blogapp.dto.request.DtoLike;
+import com.blogapp.exception.ResourceNotFoundException;
 import com.blogapp.model.Blog;
 import com.blogapp.model.Like;
 import com.blogapp.repo.BlogRepository;
@@ -14,11 +17,11 @@ import com.blogapp.repo.LikeRepository;
  * This class contains method for liking a post
  * 
  * @author Varsha
+ * @since 15/03/2021
  *
  */
 @Service
 public class LikeService {
-	Integer count = 0;
 	@Autowired
 	private BlogRepository blogRepository;
 	@Autowired
@@ -34,10 +37,12 @@ public class LikeService {
 	 * @return Integer
 	 */
 	public Integer save(DtoLike likerequest) {
+		Integer C = 0;
 		Optional<Blog> blog = blogRepository.findById(likerequest.getBlogId());
+		blog.orElseThrow(() -> new ResourceNotFoundException(Message.BLOG_NOT_FOUND));
 		Blog blog1 = blog.get();
 		Like like = new Like();
-		Integer C = 0;
+
 		Optional<Like> voteByBlogAndUser = likeRepository.findTopByBlogIdAndUsernameOrderByIdDesc(blog1.getId(),
 				customUserDetails.getCurrentUser().getUsername());
 		if (likerequest.getLike() == 1 && !voteByBlogAndUser.isPresent()) {
@@ -66,9 +71,9 @@ public class LikeService {
 	 * @return Boolean
 	 */
 	public Boolean fetchDetail(String blogId) {
-		Optional<Like> det = likeRepository.findByBlogIdAndUsername(blogId,
+		Optional<Like> details = likeRepository.findByBlogIdAndUsername(blogId,
 				customUserDetails.getCurrentUser().getUsername());
-		if (det.isPresent()) {
+		if (details.isPresent()) {
 			return true;
 		} else {
 			return false;

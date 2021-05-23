@@ -40,6 +40,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * Contains method for accepting user request
  * 
  * @author Varsha
+ * @since 15/03/2021
  *
  */
 @Service
@@ -152,7 +153,7 @@ public class CustomUserDetails implements UserDetails {
 	 * @param jwtRequest
 	 */
 	public ResponseEntity<?> authenticateUser(@RequestBody DtoLoginRequest jwtRequest) throws Exception {
-
+		//creating authentication object
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(), jwtRequest.getPassword()));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -173,6 +174,7 @@ public class CustomUserDetails implements UserDetails {
 	 */
 
 	public User getCurrentUser() {
+		//fetching current user name
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		return userRepository.findByUsername(authentication.getName())
 				.orElseThrow(() -> new UsernameNotFoundException("User name not found - " + authentication.getName()));
