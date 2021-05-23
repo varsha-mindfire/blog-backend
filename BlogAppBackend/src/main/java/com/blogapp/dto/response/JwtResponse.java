@@ -6,6 +6,7 @@ import java.util.List;
  * Jwt Message response
  * 
  * @author Varsha
+ * @since 15/03/2021
  *
  */
 public class JwtResponse {

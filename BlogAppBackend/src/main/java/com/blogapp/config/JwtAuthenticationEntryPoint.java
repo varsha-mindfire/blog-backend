@@ -11,9 +11,10 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
 /**
- * handling proper authorization
+ * Class containing method for handling proper authorization
  * 
  * @author Varsha
+ * @since 15/03/2021
  *
  */
 @Component

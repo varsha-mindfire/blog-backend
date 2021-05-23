@@ -4,6 +4,7 @@ package com.blogapp.model;
  * File model for storing file Info
  * 
  * @author Varsha
+ * @since 15/03/2021
  *
  */
 public class FileInfo {

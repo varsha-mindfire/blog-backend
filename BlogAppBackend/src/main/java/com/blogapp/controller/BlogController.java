@@ -23,6 +23,10 @@ import com.blogapp.repo.BlogRepository;
 import com.blogapp.services.BlogService;
 
 /**
+ * This file specifies all methods of a blog
+ * 
+ * @author Varsha
+ * @since 15/02/2021
  * 
  */
 @RestController
@@ -33,58 +37,86 @@ public class BlogController {
 	@Autowired
 	BlogService blogService;
 
-	// API for creating a new blog
 	@Autowired
 	BlogRepository blogRepository;
 
+	/**
+	 * Method responsible for creating a blog
+	 * 
+	 * @param DtoBlog
+	 * @return ResponseMessage
+	 */
 	@RequestMapping(value = "createblog", method = RequestMethod.POST)
 	public ResponseEntity<EmessageResponse> createComment(@RequestBody DtoBlog blogdto) {
 		blogService.saveBlog(blogdto);
 		return ResponseEntity.ok(new EmessageResponse(Emessage.BLOG_POSTED));
 	}
 
-	// API for displaying all blogs
+	/**
+	 * Method responsible for displaying all blogs
+	 * 
+	 * @return List of Blogs
+	 */
 	@GetMapping(value = "")
 	public ResponseEntity<List<Blog>> getAllBlog() {
 		return ResponseEntity.status(HttpStatus.OK).body(blogService.getAll());
 	}
 
-	// API for displaying a particular blog
+	/**
+	 * Method responsible for displaying a particular blog
+	 * 
+	 * @param id id of the blog
+	 * @return blog
+	 */
 	@RequestMapping(value = "id/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Blog> getBlogByBlogid(@PathVariable String id) {
 		return ResponseEntity.status(HttpStatus.OK).body(blogService.getBlog(id));
 	}
 
-	// API for displaying all blogs of user.
+	/**
+	 * Method responsible for displaying all blogs of user.
+	 * 
+	 * @param name, current logged in user's username
+	 * @return List of Blog
+	 */
 	@GetMapping("/{name}")
 	public ResponseEntity<List<Blog>> getBlogByUsername(@PathVariable String name) {
 		return ResponseEntity.status(HttpStatus.OK).body(blogService.getBlogByName(name));
 	}
 
-	// API for updating a blog
+	/**
+	 * Method responsible for updating a blog
+	 * 
+	 * @param id
+	 * @param blog
+	 * @return ResponseMessage
+	 */
 	@PutMapping({ "id/{id}" })
 	public ResponseEntity<EmessageResponse> updateTodo(@PathVariable("id") String id, @RequestBody Blog blog) {
-		if (blogService.updateBlog(id, blog) == true) {
-			return ResponseEntity.ok(new EmessageResponse(Emessage.BLOG_UPDATED));
-		} else {
-			return ResponseEntity.ok(new EmessageResponse(Emessage.CANNOT_UPDATE_BLOG));
-		}
+		blogService.updateBlog(id, blog);
+		return ResponseEntity.ok(new EmessageResponse(Emessage.BLOG_UPDATED));
 	}
 
-	// API for fetching blog by blogid and username
+	/**
+	 * Method responsible for fetching blog by blogid and username
+	 * 
+	 * @param id username
+	 * @return
+	 */
 	@GetMapping("myblogs/{id}")
 	public Blog fetchBlogDetailsByIdAndUsername(@PathVariable String id) {
 		return blogService.fetchBlog(id);
 	}
 
-	// API for deleting a blog
+	/**
+	 * Method responsible for deleting a blog
+	 * 
+	 * @param id
+	 * @return ResponseMessage
+	 */
 	@DeleteMapping("deleteblog/{id}")
 	public ResponseEntity<EmessageResponse> deleteBlogByIdandUsername(@PathVariable("id") String id) {
-		if (blogService.deleteBlog(id) == true) {
-			return ResponseEntity.ok(new EmessageResponse(Emessage.BLOG_DELETED));
-		} else {
-			return ResponseEntity.ok(new EmessageResponse(Emessage.CANNOT_DELETE_BLOG));
-		}
+		blogService.deleteBlog(id);
+		return ResponseEntity.ok(new EmessageResponse(Emessage.BLOG_DELETED));
 	}
-
 }

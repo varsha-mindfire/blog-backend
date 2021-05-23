@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Role model for storing roles
  * 
  * @author Varsha
+ * @since 15/03/2021
  *
  */
 @Entity(name = "roles")

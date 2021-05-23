@@ -21,6 +21,7 @@ import io.jsonwebtoken.UnsupportedJwtException;
  * This class contains method for generating and validating jwt
  * 
  * @author Varsha
+ * @since 15/03/2021
  *
  */
 @Component
@@ -34,10 +35,11 @@ public class JwtUtil {
 	private int jwtExpirationMs;
 
 	/**
-	 * generate a JWT from username, date, expiration, secret
+	 * Method responsible for generating a JWT from username, date, expiration,
+	 * secret.
 	 * 
 	 * @param authentication
-	 * @return
+	 * @return String
 	 */
 	public String generateJwtToken(Authentication authentication) {
 
@@ -49,10 +51,10 @@ public class JwtUtil {
 	}
 
 	/**
-	 * getting username from JWT
+	 * Method responsible for getting username from JWT
 	 * 
 	 * @param token
-	 * @return
+	 * @return String
 	 */
 	public String getUserNameFromJwtToken(String token) {
 		return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();

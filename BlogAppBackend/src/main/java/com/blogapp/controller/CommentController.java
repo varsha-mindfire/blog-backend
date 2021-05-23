@@ -20,6 +20,10 @@ import com.blogapp.model.Comment;
 import com.blogapp.repo.CommentRepository;
 import com.blogapp.services.CommentService;
 
+/**
+ * @author Varsha
+ * @since 15/03/2021
+ */
 @RestController
 @RequestMapping("/api/comments")
 @CrossOrigin("http://localhost:4200")
@@ -30,14 +34,24 @@ public class CommentController {
 	@Autowired
 	CommentRepository commentRepository;
 
-	// API for posting comments in a particular blog
+	/**
+	 * Method for posting comments in a particular blog
+	 * 
+	 * @param commentdto
+	 * @return ResponseMessage
+	 */
 	@PostMapping("/createcomment")
 	public ResponseEntity<EmessageResponse> createComment(@RequestBody DtoComment commentdto) {
 		commentService.save(commentdto);
 		return ResponseEntity.ok(new EmessageResponse(Emessage.COMMENT_ADDED));
 	}
 
-	// API for fetching all comments for a particular blog.
+	/**
+	 * Method for fetching all comments for a particular blog.
+	 * 
+	 * @param id
+	 * @return List of comments
+	 */
 	@GetMapping("/id/{id}")
 	public ResponseEntity<List<Comment>> getCommentsByBlogid(@PathVariable String id) {
 		return ResponseEntity.status(HttpStatus.OK).body(commentService.getAllCommentsForPost(id));

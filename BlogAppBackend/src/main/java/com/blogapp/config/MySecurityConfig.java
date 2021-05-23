@@ -18,10 +18,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.blogapp.services.CustomUserDetailService;
 
 /**
- * Defining proper security for accessing resources Defining authentication
- * Manager
+ * File contains proper security for accessing resources and defining
+ * authentication manager.
  * 
  * @author Varsha
+ * @since 15/03/2021
  */
 @Configuration
 @EnableWebSecurity

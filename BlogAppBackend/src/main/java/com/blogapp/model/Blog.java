@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * Blog model for storing blog Info
  * 
  * @author Varsha
+ * @since 15/03/2021
  *
  */
 @Document(collection = "blogpost")

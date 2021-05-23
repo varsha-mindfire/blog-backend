@@ -19,7 +19,7 @@ import com.blogapp.repo.UserRepository;
  * This class have methods for posting and fetching comments for blogs
  * 
  * @author Varsha
- * @since 2021-04-03
+ * @since 15/03/2021
  */
 @Service
 public class CommentService {
@@ -44,6 +44,7 @@ public class CommentService {
 	 * @exception ResourceNotFound
 	 */
 	public void save(DtoComment comrequest) {
+		// saving comment for a blog
 		Optional<Blog> blog = blogRepository.findById(comrequest.getBlogId());
 		Instant instant = Instant.now();
 		Comment c = new Comment();

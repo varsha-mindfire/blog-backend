@@ -19,6 +19,7 @@ import javax.persistence.UniqueConstraint;
  * User model for storing user Info
  * 
  * @author Varsha
+ * @since 15/03/2021
  *
  */
 

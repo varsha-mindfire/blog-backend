@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * Like model for storing like Info
  * 
  * @author Varsha
+ * @since 15/03/2021
  *
  */
 @Document(collection = "likes")
